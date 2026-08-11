@@ -1,111 +1,238 @@
-# App artwork — prompts
+# Art direction brief — the seven apps
 
-*Seven images, one per app. These replace the flat geometric tiles, which said "brand" rather than
-"product". Each one should look like the thing it is.*
-
-## Two families, on purpose
-
-**The five tools** — Itqān, Jadhr, Sakīnah, NoorReader, Asanīd — are **photographic still lifes**,
-in the same visual language as the site's hero images: real materials, warm directional light, deep
-pine shadow, antique gold, shallow depth of field. They sit beside those heroes, so they should
-look like they were shot on the same afternoon.
-
-**The two games** — Sunrise Masjid and Saif al-Ummah — are **key art in their own idiom**. A
-photograph of a game misrepresents it. Sunrise Masjid is illustrated 2.5D; Saif al-Ummah is
-painterly pixel-art RPG. Their tiles should look like a frame you could play.
-
-## Two rules that carry over
-
-**No readable writing.** Where a book or page appears, instruct that any script be soft-focused and
-illegible. Image models cannot set Arabic — they produce letterforms that look right and say
-nothing — and garbled script on a page about the Islamic sciences is not a small error.
-
-**No faces.** Distant or silhouetted figures are fine in the game art, where nobody could mistake
-an illustration for a documentary photograph. Everywhere else, no people.
-
-## Format
-
-Square, 1024 × 1024, PNG → convert to `.webp` at quality 86 (`tools/`, or the one-liner in
-`image-brief.md`). File names: `app-itqan.webp`, `app-jadhr.webp`, `app-sakinah.webp`,
-`app-noorreader.webp`, `app-sunrise.webp`, `app-saif.webp`, `app-asanid.webp`.
-
-> **These deserve more room than they currently get.** The apps ledger shows them at 60 px, which
-> wastes real artwork. Worth moving `/apps/` to a card layout with the art at a proper size — ask
-> and I will rebuild it.
+*Self-contained. Paste the whole thing, then request one image at a time from §6.*
+*Version 2.0 — 2026-08-11*
 
 ---
 
-## 1 · Itqān — the mastery path
+You are one of the best art directors alive — the one studios call when key art has to carry a
+culture and not wear it as a costume. You have directed for animated features, you have built
+identities for institutions that intend to outlive their founders, and you know the exact
+difference between work that is *informed by* a tradition and work that is *decorated with* one.
 
-> A warm, photographic still life on a wooden study desk: an open grammar workbook with a second
-> book stacked beside it, a neat fan of handwritten study cards, a fountain pen resting on a
-> notebook, and a small brass lamp casting warm directional light from the left. Deep pine green
-> shadows, antique gold highlights, warm ivory paper. Any writing on the pages must be softly out
-> of focus and illegible — do not attempt to render readable script. Shallow depth of field, real
-> paper grain and wood texture, unhurried and scholarly. No people, no hands, no legible text.
-> Square composition.
+You are working for a house whose entire competitive position is being real. Every ounce of
+pastiche — a generic mask, a mud hut, a "tribal" pattern nobody can name, a mosque silhouette with
+a crescent on it — actively destroys the thing being sold. The audience here can tell. Many of them
+grew up inside these traditions.
 
-## 2 · Jadhr — the one we do not explain
-
-> A quiet, photographic still life: a single reed qalam resting across a sheet of unbleached
-> handmade paper, beside a small closed inkwell, on a dark wooden surface. One small stroke of dark
-> ink on the paper, nothing more. Low warm light from one side, deep shadow, generous empty space.
-> The mood is anticipation — something about to begin. No people, no hands, no text, no letters.
-> Square composition.
-
-*It should invite a question and answer none of it. Nothing in this frame explains the game.*
-
-## 3 · Sakīnah — private, halal money
-
-> A calm photographic still life: a small brass balance scale in perfect equilibrium on a dark
-> wooden table, beside a closed leather ledger and a shallow dish holding a few coins. Warm side
-> light, deep pine green background falling into shadow, antique gold on the brass. Everything
-> level, ordered, and still — the feeling is tranquillity and control, not wealth. No people, no
-> hands, no text, no logos, no currency symbols. Shallow depth of field. Square composition.
-
-## 4 · NoorReader — study, lit from within
-
-> A photographic still life at night: an open book lying flat on a desk with a scattering of small
-> coloured tabs marking its pages, a pair of reading glasses folded beside it, and a warm lamp just
-> out of frame throwing a pool of gold light across the paper. The room beyond falls into deep pine
-> darkness. The page text must be soft-focused and illegible. Warm ivory paper, antique gold light,
-> real texture. No people, no hands, no legible text, no screens. Square composition.
-
-## 5 · Asanīd — the chains, mapped
-
-> A photographic still life in an old library: three or four aged manuscripts stacked and fanned on
-> a dark wooden table, with a fine chain of small brass links resting across them and trailing off
-> the edge of the frame. Warm directional light, deep shadow behind, antique gold on the brass,
-> aged paper in warm ivory. Any script on the manuscripts must be soft-focused and illegible. The
-> feeling is lineage and custody — things handed down intact. No people, no hands, no legible text.
-> Square composition.
-
-## 6 · Sunrise Masjid — game key art
-
-> Illustrated 2.5D video-game key art, not a photograph. A South Los Angeles residential street at
-> dawn: low houses, chain-link fences, power lines, palm trees in silhouette, and the modest
-> minaret of a neighbourhood masjid a few blocks ahead. The sun is just breaking the horizon in
-> warm gold behind it. A single small figure, seen from behind and far away as a silhouette, walks
-> up the middle of the street toward the masjid. Rich painterly game-art style with clean readable
-> shapes and strong depth layering — foreground, midground, sky. Deep pine and indigo shadow, warm
-> gold light. Nobody's face is visible. No text, no letters, no UI or interface elements. Square
-> composition.
-
-## 7 · Saif al-Ummah — game key art
-
-> Painterly pixel-art key art for an action-RPG, not a photograph. A wide arid landscape at dusk:
-> a curved sword planted upright in the ground in the near foreground, a worn road winding away
-> behind it, and the silhouette of a walled fortress city on the far horizon under a deep sky. Warm
-> gold light on the blade and the horizon, deep pine and indigo in the shadows and sky. Detailed
-> pixel art with a limited palette and strong readable silhouettes, in the register of a serious
-> 16-bit RPG rather than a cartoon. No people, no text, no letters, no UI or interface elements.
-> Square composition.
+Make seven images. They are for a family of seven Muslim software products, and they must look like
+one house without looking like one template.
 
 ---
 
-## If a result comes back wrong
+## 1 · The client
 
-Two failure modes, both common. **Invented script** — a model will add letterforms to a page even
-when told not to; discard those, they are gibberish and worse than blank. **Too clean** — if it
-looks like a stock render, ask for "real material wear, dust, uneven light, imperfect placement."
-Generate four of each and take the one that looks like it belongs in a room rather than a catalogue.
+**Inheriting Islam** — a small house of work run by a former imam turned builder, serving
+English-first African American Muslim communities and the wider ummah. The thesis under everything
+is *mīrāth*: the deen is an inheritance, received, lived, and passed on.
+
+Seven products. Five are tools. Two are games. Their identity should split along that line, because
+a tool and a game make different promises, and one visual language flattened across both would be
+a lie about what these things are.
+
+## 2 · The palette
+
+The house colours are fixed and every image lives inside them:
+
+| | | |
+|---|---|---|
+| Deep pine | `#183C34` | the ground, the shadow, the dark |
+| Antique gold | `#B08D57` | light, metal, the one thing that glows |
+| Warm ivory | `#F5F0E6` | paper, plaster, the light side |
+| Stone | `#8C8F94` | cool neutral, used sparingly |
+| Sand | `#DAD8D2` | warm neutral |
+
+**Direction A may extend it** with the earth pigments named in §3 — indigo, ochre, terracotta,
+saffron. **Direction B may not extend it at all.** That asymmetry is deliberate: the games get to be
+warm and various, the tools stay disciplined.
+
+## 3 · Direction A — "Sahel" · the two games
+
+*Sunrise Masjid and Saif al-Ummah only.*
+
+**Sahelian Islamic visual heritage, rendered as modern animation.** Not "African art" in general —
+that phrase produces mush. Work from these specific traditions, which are West African **and**
+Muslim, which is the entire point:
+
+- **Sudano-Sahelian architecture** — the mud-built masajid and cities of Djenné, Timbuktu, Agadez
+  and Kano. Tapered buttresses, organic hand-shaped walls, and the *toron*: the bundles of palm
+  beams that project from the façade in horizontal rows. That silhouette is unmistakable and almost
+  nobody uses it.
+- **Bògòlanfini** (Bamana mudcloth, Mali) — earth-dyed geometry, hand-stamped and irregular,
+  ivory forms on deep brown-black.
+- **Indigo** — Tuareg cloth, Yoruba *adire* resist-dye. The deep blue that reads almost black in
+  shadow and violet in light.
+- **Sahelian manuscript illumination** — the Timbuktu tradition: geometric borders, panel frames,
+  ochre, indigo and gold. Take the *ornament and structure*. Take no lettering (see §5).
+
+**Extended palette for this direction:** indigo `#243B5E`, ochre `#C1782B`, terracotta `#9C4B2E`,
+saffron `#E0A13B`, alongside the house pine, gold and ivory.
+
+**Rendering:** the register of a hand-painted animated feature — bold flat shapes, limited palette,
+strong silhouettes that read at a glance, painterly light, and visible hand-made grain and texture.
+Frames a person could believe were painted, then animated. Depth built in clean layers: foreground,
+midground, sky.
+
+## 4 · Direction B — "Studio" · the five tools
+
+*Itqān, Jadhr, Sakīnah, NoorReader, Asanīd.*
+
+**Contemporary, engineered, quiet.** The register of high-end product key art and motion-design
+stills: **cel-shaded 3D** — matte materials, no chrome, no glass, no glossy highlights — with soft
+volumetric light, clean geometry, and generous empty space. A single warm gold light source in an
+otherwise pine-dark field, or the inverse: ivory space with pine forms.
+
+Composition is centred or isometric, objects floating with intention rather than arranged on a
+surface. Add a fine film grain so it reads as designed rather than as a stock render.
+
+These should feel like software made by people with taste. Restraint is the whole effect.
+
+## 5 · Hard rules — violating any of these makes the image unusable
+
+- **No writing of any kind. No letters, no words, no numerals, no script.** Arabic especially:
+  image models produce letterforms that look convincing and mean nothing, and gibberish that
+  resembles Qur'anic text on a Muslim education product is not a small error. Where a book or page
+  appears it must be blank, or so far out of focus that no character is legible.
+- **No faces.** In the two games, a distant figure in silhouette is fine — nobody could mistake it
+  for a photograph of a real person. Nowhere else, and never a face.
+- **No unnamed symbols.** If a stamped motif appears, it must come from a tradition you can name.
+  Adinkra symbols in particular carry specific meanings; do not use one decoratively without
+  intending what it says.
+- **No pastiche.** No masks, no spears, no savannah-sunset-with-acacia, no "tribal" pattern from
+  nowhere, no Wakanda. Sahelian means Sahelian.
+- **No Islamic clip-art.** No crescent-and-star, no lantern, no onion dome, no emerald-to-gold
+  gradient. The masjid architecture in Direction A is West African and mud-built, not Ottoman.
+- **Palette discipline.** Direction B stays inside the five house colours. Direction A may add only
+  the four earth pigments named in §3.
+- **Square, and legible small.** Every image must still read at 120 px.
+
+## 6 · The seven
+
+Request them one at a time. Generate four of each and keep the one that looks like it came out of a
+room rather than a catalogue.
+
+---
+
+### 1 · Sunrise Masjid — *a 2.5D platformer about Muslim life* · Direction A
+
+The vertical slice is a walk to the masjid at Fajr in South Los Angeles.
+
+> Hand-painted animated-feature key art, square. A South Los Angeles residential street at dawn,
+> seen in clean depth layers: chain-link fences and a low front yard in the foreground, single-storey
+> houses and power lines in the midground, and three blocks ahead a small neighbourhood masjid whose
+> tower is built in Sudano-Sahelian style — tapered mud-form walls with rows of projecting wooden
+> toron beams — standing where a normal American storefront masjid would be. The sun is just
+> breaking the horizon behind it in antique gold and saffron. Palms in flat silhouette. One small
+> figure, far away, seen from behind, walks up the middle of the empty street toward the masjid.
+> Deep pine and indigo in the shadows, warm gold light, ochre in the earth tones. Bold flat shapes,
+> limited palette, strong silhouettes, visible painterly grain. No faces, no text, no letters, no
+> interface elements.
+
+*The whole image is one idea: an ordinary American street, and something ancient standing at the end
+of it.*
+
+### 2 · Saif al-Ummah — *an Islamic action-RPG* · Direction A
+
+> Hand-painted animated-feature key art, square, in the register of a serious adventure game. A wide
+> Sahelian landscape at dusk: in the near foreground a curved sword planted upright in dry ochre
+> earth, its blade catching the last gold light. A worn road winds back from it through scrub, and
+> on the far horizon a walled mud-built city rises — Djenné-style architecture, tapered buttresses,
+> rows of projecting toron beams, organic hand-shaped walls, a great masjid at its centre. Deep
+> indigo sky with the last band of saffron at the horizon. Terracotta and ochre in the land, deep
+> pine in the shadows. Bold flat shapes, limited palette, painterly grain, strong readable
+> silhouettes. No people, no text, no letters, no interface elements.
+
+*The sword is planted, not held. This is a story about what you become in order to win, not about
+swinging it.*
+
+### 3 · Itqān — *mastery of the sacred sciences* · Direction B
+
+> Cel-shaded 3D product key art, square. A matte ivory book lies open and floating in a deep pine
+> void, its pages completely blank. Above and behind it, a series of thin ivory cards rise in a
+> gentle arc, each slightly rotated, receding into darkness — like a spaced-repetition stack lifting
+> off the page. A single warm gold light from the upper left rakes across them, throwing long soft
+> shadows. Matte materials, no gloss, no chrome, no glass. Generous empty space, fine film grain.
+> No text, no letters, no writing on any surface, no people.
+
+### 4 · Jadhr — *deliberately undescribed* · Direction B
+
+The product is not explained anywhere, and the artwork must not explain it either.
+
+> Cel-shaded 3D product key art, square, minimal and enigmatic. A single stroke of dark ink hangs
+> suspended in a deep pine void — a fluid, tapering mark with real thickness, as though drawn by a
+> reed pen and frozen mid-air in three dimensions. One warm gold light catches its upper edge. A
+> vast amount of empty space around it. Matte, no gloss, fine film grain. Nothing else in the frame.
+> No text, no letters, no people.
+
+*It should make someone ask what it is. It should answer nothing.*
+
+### 5 · Sakīnah — *private halal finance* · Direction B
+
+> Cel-shaded 3D product key art, square. A minimal balance scale, reduced to pure geometry — a
+> slender ivory beam resting in perfect equilibrium on a matte pine plinth, with two shallow discs
+> suspended at its ends, one holding a small stack of matte gold forms. Everything perfectly level
+> and still. Soft warm gold light from one side, deep pine background falling away into darkness.
+> Matte materials, no gloss, no chrome. Fine film grain, generous space. No text, no letters, no
+> currency symbols, no logos, no people.
+
+*The feeling is tranquillity and control. Not wealth.*
+
+### 6 · NoorReader — *a study reader, lit from within* · Direction B
+
+> Cel-shaded 3D product key art, square. A matte ivory book floats open in a dark pine void, and
+> warm gold light pours upward out from between its blank pages, casting a soft glow into the
+> darkness above it. A few slim coloured tabs — sand, ochre, gold — project from its edge. The light
+> comes from inside the book, not from the room. Matte materials, no gloss, fine film grain, deep
+> shadow, generous empty space. Pages entirely blank. No text, no letters, no people.
+
+### 7 · Asanīd — *the chains of transmission* · Direction B
+
+> Cel-shaded 3D product key art, square. A branching structure of fine matte gold links rises
+> through a deep pine void — a chain that divides as it ascends, each junction marked by a small
+> luminous node, spreading upward and outward like a genealogy rendered in metal. The lowest link
+> disappears out of the bottom of the frame; the highest branches fade softly into the dark. One
+> warm light source. Matte materials, no gloss. Fine film grain. No text, no letters, no people.
+
+*A chain that grows upward rather than hanging down. Transmission, not weight.*
+
+---
+
+## 7 · Delivery
+
+Square, **1024 × 1024**, PNG. Convert before committing:
+
+```bash
+cd ~/inheritingislam-com/assets/img
+python3 -c "
+from PIL import Image; import glob
+for f in glob.glob('*.png'):
+    Image.open(f).convert('RGB').save(f.replace('.png','.webp'),'WEBP',quality=86,method=6)
+"
+```
+
+File names: `app-itqan.webp`, `app-jadhr.webp`, `app-sakinah.webp`, `app-noorreader.webp`,
+`app-sunrise.webp`, `app-saif.webp`, `app-asanid.webp`. Keep each under 90 KB.
+
+## 8 · When a result comes back wrong
+
+**It added writing.** It will, even when told not to. Discard it — the letterforms are meaningless.
+
+**It went generic-Africa.** If a mask, a spear, an acacia at sunset or an unplaceable pattern shows
+up, name the tradition again in the prompt: *Sudano-Sahelian mud architecture with toron beams,
+Bamana bògòlanfini geometry.* Specificity is the only reliable fix.
+
+**It looks like a stock render.** Ask for "visible hand-made grain, uneven light, imperfect
+placement." Sterile is the default failure mode of Direction B.
+
+**It over-decorated.** Both directions are about restraint. If in doubt, ask for the same image with
+half as much in it.
+
+---
+
+## A note on motion
+
+If "animated" meant literally moving, the site can carry it — but a still costs 40 KB and a loop
+costs 800 KB, on a site that promises to be fast on a mid-range phone. The better version is to
+generate these as stills and let CSS do the movement: a slow parallax drift on the two game frames,
+a gentle light bloom on the tools. Same impression, a twentieth of the weight. Ask and I will
+build it.
