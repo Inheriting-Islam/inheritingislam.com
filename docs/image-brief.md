@@ -126,8 +126,8 @@ A phone in good daylight is enough.
 - **The Al-Maun build in the world** — the site open on a phone, held, somewhere ordinary. Real
   screenshots are already on the site; a photograph of one in a hand adds warmth without adding a
   claim.
-- **Your desk at night.** The work is genuinely done at nights and weekends. A photograph of that
-  is truer than any illustration of it.
+- **Your desk.** A photograph of where the work actually happens is truer than any
+  illustration of it.
 - **Al-Maun's own community photos** — they exist and they are strong, but they are the client's.
   Ask before publishing any of them here, in writing, and caption them as theirs.
 
