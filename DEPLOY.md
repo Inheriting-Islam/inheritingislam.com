@@ -44,7 +44,13 @@ that actually matters**; the rest is plumbing.
       خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ. I checked the letterforms and diacritics
       and they are correct — but you taught this, so give it your own look. It is the one image on
       the site where an error would matter.
-- [ ] **App statuses.** Six apps, none shipped. If any status changed, `/apps/` changes with it.
+- [ ] **App statuses.** Seven apps, none shipped. If any status changed, `/apps/` changes with it.
+- [ ] **Saif al-Ummah is provisional and needs your words.** It is listed at `Concept` and
+      described only as "a game… an older idea that has not been given its final shape." I had no
+      source material on it — that description is inferred from your having stepped away from a 3D
+      Steam build, not from anything you wrote. Confirm the status, and give me one true sentence
+      about what it is. If it is further along than Concept, the page currently understates it; if
+      it is shelved, it should come off.
 
 ## Gate 2 — Technical. Automated, so it stays true.
 
