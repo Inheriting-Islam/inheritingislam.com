@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Khatam: the eight-point star, built the way it is actually built —
+       two squares of equal circumradius, one turned 45°. Seamless at 120px.
+       Real geometry, drawn to size, ~700 bytes. Not a picture of a pattern. -->
+  <g fill="none" stroke="#B08D57" stroke-width="1.7" stroke-linejoin="miter">
+    <path d="M60 16 104 60 60 104 16 60Z"/>
+    <path d="M28.9 28.9H91.1V91.1H28.9Z"/>
+    <path d="M0 -16 16 0 0 16 -16 0Z"/>
+    <path d="M120 -16 136 0 120 16 104 0Z"/>
+    <path d="M0 104 16 120 0 136 -16 120Z"/>
+    <path d="M120 104 136 120 120 136 104 120Z"/>
+  </g>
+</svg>
