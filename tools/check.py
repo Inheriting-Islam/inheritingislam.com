@@ -57,7 +57,8 @@ for path in pages():
         target = target.split('?')[0]
         if not target:
             continue
-        full = os.path.join(ROOT, target.lstrip('/'))
+        base = ROOT if target.startswith('/') else os.path.dirname(path)
+        full = os.path.normpath(os.path.join(base, target.lstrip('/') if target.startswith('/') else target))
         hit = [c for c in (full, os.path.join(full, 'index.html')) if os.path.isfile(c)]
         if not hit:
             fails.append(f'{p}: dead reference → {attr}')

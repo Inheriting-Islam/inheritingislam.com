@@ -79,44 +79,56 @@
   /* ---- mailto composer ----------------------------------------------
      There is no form backend. Rather than pretend, we compose a complete,
      well-formatted email in the visitor's own mail app and tell them exactly
-     what is about to happen. */
-  var form = document.getElementById('contactForm');
-  if (form) {
-    var note = document.getElementById('formNote');
+     what is about to happen.
+
+     Field-agnostic: it reads the form's own labels, so adding a field to the
+     HTML adds it to the email with no JavaScript change. */
+  document.querySelectorAll('form[data-to]').forEach(function (form) {
+    var to = form.getAttribute('data-to');
+    var note = form.querySelector('.formnote');
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var d = new FormData(form);
-      var val = function (k) { return (d.get(k) || '').toString().trim(); };
-      var name = val('name'), email = val('email');
+      var name = (form.querySelector('[name=name]') || {}).value || '';
+      var email = (form.querySelector('[name=email]') || {}).value || '';
+      name = name.trim(); email = email.trim();
+
       if (!name || email.indexOf('@') < 1) {
-        if (note) { note.classList.remove('ok'); note.textContent = 'Add your name and an email we can reply to, and we will open the message for you.'; }
-        (name ? form.querySelector('[name=email]') : form.querySelector('[name=name]')).focus();
+        if (note) {
+          note.classList.remove('ok');
+          note.textContent = 'Add your name and an email we can reply to, and we will open the message for you.';
+        }
+        var focus = name ? form.querySelector('[name=email]') : form.querySelector('[name=name]');
+        if (focus) focus.focus();
         return;
       }
-      var subject = (val('need') || 'Inquiry') + (val('org') ? ' — ' + val('org') : ' — ' + name);
-      var lines = [
-        'Assalamu alaikum Hamza,', '',
-        'Name: ' + name,
-        'Organization: ' + (val('org') || '—'),
-        'Type: ' + (val('kind') || '—'),
-        'Email: ' + email,
-        'Phone: ' + (val('phone') || '—'),
-        'Current website: ' + (val('site') || '—'),
-        'What we need: ' + (val('need') || '—'),
-        'Timing: ' + (val('timing') || '—'),
-        'Budget: ' + (val('budget') || '—'),
-        '', (val('message') || ''), ''
-      ];
-      var href = 'mailto:' + form.getAttribute('data-to') +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(lines.join('\r\n'));
+
+      var lines = ['Assalamu alaikum,', ''], message = '';
+      form.querySelectorAll('input, select, textarea').forEach(function (el) {
+        if (!el.name || el.type === 'submit') return;
+        var label = form.querySelector('label[for="' + el.id + '"]');
+        var key = label ? label.textContent.replace('*', '').trim() : el.name;
+        if (el.type === 'checkbox') {
+          if (el.checked) lines.push(key + ': yes');
+        } else if (el.tagName === 'TEXTAREA') {
+          if (el.value.trim()) message = key + ':\r\n' + el.value.trim();
+        } else if (el.value.trim()) {
+          lines.push(key + ': ' + el.value.trim());
+        }
+      });
+      if (message) lines.push('', message);
+      lines.push('');
+
+      var subject = (form.getAttribute('data-subject') || 'Enquiry') + ' — ' + name;
       if (note) {
         note.classList.add('ok');
-        note.textContent = 'Opening your email app with the message written out — press send. If nothing opens, write ' + form.getAttribute('data-to') + ' directly.';
+        note.textContent = 'Opening your email app with the message written out — press send. If nothing opens, write ' + to + ' directly.';
       }
-      location.href = href;
+      location.href = 'mailto:' + to +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(lines.join('\r\n'));
     });
-  }
+  });
 
   /* ---- year ---------------------------------------------------------- */
   var year = document.getElementById('year');
