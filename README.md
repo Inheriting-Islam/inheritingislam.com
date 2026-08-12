@@ -3,7 +3,7 @@
 The house site for **Inheriting Islam** — the Studio, the Apps, Inheriting Qur'an, and the Podcast.
 
 Static HTML. No framework, no build step, no backend, and no third-party requests of any kind.
-Fourteen pages, about 2 MB in total including every image and both webfont families.
+Fifteen pages, about 2 MB in total including every image and both webfont families.
 
 **Deploying it for the first time? → [`DEPLOY.md`](DEPLOY.md).** That is the build plan: four
 gates, starting with the claims on the site that only Hamza can confirm.
@@ -41,7 +41,8 @@ python3 tools/render-audit.py http://localhost:8080 "/,/studio/,/apps/,/quran/"
 
 ```
 index.html                  Home — thesis, four arms, Al-Maun, pricing, the founder
-studio/                     The Studio — context, scope, process, pricing, MasjidBuilder
+studio/                     The Studio — the problem, scope, process, ownership, pricing, FAQ
+studio/care/                Care plans — the tiers, minor vs major, the seasons
 studio/almaun/              Case study — Al-Maun Neighborly Needs
 apps/                       Six apps, each with its real status
 quran/                      Inheriting Qur'an — the program, $50/mo, the enrolment form
@@ -58,7 +59,8 @@ contact/                    Start a project — intake form (mailto) + direct co
 assets/css/fonts.css        Cormorant Garamond, Source Sans 3, Amiri — base64 woff2, one
                             cached request for the whole site (285 KB)
 assets/css/site.css         The entire design system: tokens, both themes, every component
-assets/css/quran.css        The Qur'an arm's skin: warmer bands, the arm bar, its components
+assets/css/quran.css        The Qur'an arm's skin: warmer bands, its own components
+assets/css/studio.css       The Studio arm: the care ladder and the case-study metrics
 assets/js/site.js           Theme, nav, reveal, mailto composer, clipboard (~4 KB)
 assets/js/quran.js          Placement check, letter panel, time zone, level hand-off (~7 KB)
 assets/img/                 Hero artwork, app tiles, Al-Maun screenshots, share card, icons
@@ -67,10 +69,11 @@ docs/image-brief.md         What artwork to commission, and the two things never
 tools/check.py              The structural audit (also runs in CI)
 tools/render-audit.py       Browser sweep: overflow at every breakpoint, both themes
 tools/build-fonts.py        Rebuilds fonts.css from Google Fonts, subset to what we use
-tools/build-onepager.py     Renders the masajid PDF; fails if it spills past one page
+tools/build-onepager.py     Renders both leave-behind PDFs; fails if either spills past one page
 
 _internal/NOTES.md          Delivery notes — read before publishing
-_internal/NOTES-QURAN.md    Delivery notes for the Qur'an section specifically
+_internal/NOTES-QURAN.md    Delivery notes for the Qur'an section
+_internal/NOTES-STUDIO.md   Delivery notes for the Studio section
 ```
 
 ## The design
@@ -93,11 +96,13 @@ can win on specificity by accident.
 **Header, footer and nav** are repeated in every page deliberately, since there is no build step.
 Change one, change all fourteen. `aria-current="page"` marks the active nav item.
 
-**The `/quran/` pages differ from the other eight in three ways**, all deliberate: `<body>` carries
-`data-arm="quran"`, the header's primary button says **Join a class** rather than Start a project,
-and a second sticky `.armbar` under the header carries the section's own navigation (folded into
-the mobile panel below 1000px). The footer's third column lists the arm's pages instead of the
-house's work.
+**Arm sections.** `/quran/` and `/studio/` each have enough pages to need local navigation, so
+they carry `data-arm="…"` on `<body>` and a second sticky `.armbar` under the header (folded into
+the mobile panel below 1000px), and their footer's third column lists the arm's own pages. The
+Qur'an pages also swap the header's primary button to **Join a class**, because a student arriving
+to learn to read should not be sold a website build. The shared chrome lives in `site.css` under
+"ARM SECTIONS"; each arm's stylesheet holds only what is particular to it — and `studio.css` shifts
+no colour token at all, because the Studio is the house's default register.
 
 **Status pills** — `<span class="pill live|dev|beta|concept">…</span>`. Those four words are
 defined on `/apps/`; keep them meaning exactly what that page says they mean.

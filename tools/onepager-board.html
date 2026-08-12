@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Studio — for your board</title>
+<!-- Source for studio/inheriting-islam-for-your-board.pdf.
+     Lives in tools/ rather than _internal/ so a fresh clone can rebuild the PDF
+     (_internal/ is gitignored). check.py skips tools/, so it is never audited
+     as a page.
+     Render:  python3 -m http.server 8080
+              python3 tools/build-onepager.py --only board
+     Letter, ONE page, print colours. Every figure on this sheet must match
+     studio/index.html — if you change a price, change it here in the same edit
+     and re-render. Nothing here may claim anything the website does not. -->
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<style>
+  @page{size:Letter;margin:0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    width:8.5in;height:11in;padding:.46in .58in .38in;
+    background:#F5F0E6;color:#14201B;
+    font-family:'Source Sans 3',system-ui,sans-serif;
+    font-size:8.05pt;line-height:1.35;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    display:flex;flex-direction:column
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0;line-height:1.06}
+  p{margin:0 0 .6em}
+  b{font-weight:700}
+  .eyebrow{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.6pt;
+    letter-spacing:.24em;text-transform:uppercase;color:#674B13;margin:0 0 .5em
+  }
+
+  /* --- masthead --- */
+  .top{display:flex;align-items:center;gap:10px;padding-bottom:9px;border-bottom:1.4px solid #183C34}
+  .top svg{width:58px;height:28px;flex:none}
+  .top .wm{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:14pt;line-height:1}
+  .top .sub{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.22em;
+    text-transform:uppercase;color:#674B13;margin-top:3px
+  }
+  .top .arm{
+    margin-left:auto;text-align:right;font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:12.5pt;font-weight:600;line-height:1.1
+  }
+  .top .arm span{
+    display:block;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;
+    letter-spacing:.2em;text-transform:uppercase;color:#4B564C;margin-top:3px
+  }
+
+  /* --- lede --- */
+  .lede{padding:8px 0 8px;border-bottom:1px solid rgba(20,32,27,.18)}
+  .lede h1{font-size:17pt;font-weight:400;letter-spacing:-.012em;max-width:26ch;margin-bottom:.26em}
+  .lede p{font-size:8.8pt;line-height:1.36;color:#2C3A32;max-width:66ch;margin:0}
+
+  /* --- facts strip --- */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(20,32,27,.18);
+    border:1px solid rgba(20,32,27,.18);margin:8px 0}
+  .facts div{background:#F5F0E6;padding:6px 9px}
+  .facts .k{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.17em;
+    text-transform:uppercase;color:#4B564C;margin-bottom:4px
+  }
+  .facts .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:12pt;font-weight:600;line-height:1.08}
+  .facts .n{font-size:7.2pt;color:#46544B;margin-top:2px;line-height:1.28}
+
+  /* --- split --- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:0}
+  .split h2{font-size:11.4pt;margin-bottom:.45em}
+  ul{list-style:none;margin:0;padding:0}
+  li{display:grid;grid-template-columns:8px 1fr;gap:7px;padding:2.8px 0;align-items:start}
+  li::before{content:"";width:4.5px;height:4.5px;margin-top:5px;background:#B08D57;transform:rotate(45deg)}
+
+  /* --- the arithmetic --- */
+  .sums{
+    margin-top:7px;padding:10px 12px;background:#183C34;color:#F5F0E6;
+  }
+  .sums h3{font-size:11.4pt;color:#F5F0E6;margin-bottom:.45em}
+  .sums .intro{font-size:7.6pt;line-height:1.34;color:#DAD8D2;margin:0 0 7px;max-width:96ch}
+  .sums .row{
+    display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
+    padding:5px 0;border-top:1px solid rgba(217,180,120,.32)
+  }
+  .sums .row .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:10.5pt;font-weight:600}
+  .sums .row .d{font-size:7.5pt;color:#DAD8D2;margin:1px 0 0;line-height:1.32}
+  .sums .row .amt{
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:14pt;font-weight:600;
+    white-space:nowrap;text-align:right;line-height:1
+  }
+  .sums .row .amt span{
+    display:block;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6pt;
+    letter-spacing:.16em;text-transform:uppercase;color:#D9B478;margin-top:3px
+  }
+  .sums .row.own .amt{color:#D9B478}
+
+  /* --- how --- */
+  .how{margin-top:6px}
+  .how h2{font-size:11.4pt;margin-bottom:.4em}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(20,32,27,.18);
+    border:1px solid rgba(20,32,27,.18)}
+  .steps div{background:#F5F0E6;padding:6px 8px 7px}
+  .steps .n{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.17em;
+    text-transform:uppercase;color:#674B13;margin-bottom:4px
+  }
+  .steps .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:9.6pt;font-weight:600;line-height:1.12;margin-bottom:2px}
+  .steps p{font-size:7.1pt;line-height:1.3;color:#46544B;margin:0}
+
+  /* --- foot --- */
+  .foot{
+    margin-top:auto;padding-top:8px;border-top:1.4px solid #183C34;
+    display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end
+  }
+  .foot .ask{max-width:56ch}
+  .foot .ask h3{font-size:10.6pt;margin-bottom:.24em}
+  .foot .ask p{font-size:7.9pt;color:#46544B;margin:0}
+  .foot .reach{text-align:right;font-size:8.2pt;line-height:1.55}
+  .foot .reach b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:10.4pt;font-weight:600}
+  .foot .reach .u{color:#674B13;font-weight:600}
+  .rule-note{
+    grid-column:1/-1;margin-top:6px;padding-top:5px;border-top:1px solid rgba(20,32,27,.18);
+    font-size:6.9pt;color:#4B564C;line-height:1.36
+  }
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <svg viewBox="0 0 132 64" fill="none" aria-hidden="true"><g stroke-width="9" stroke-linejoin="miter"><path d="M66 5 93 32 66 59 39 32Z" stroke="#B08D57"/><path d="M33 5 60 32 33 59 6 32Z" stroke="#183C34"/><path d="M99 5 126 32 99 59 72 32Z" stroke="#183C34"/><path d="M39 32 66 59 93 32" stroke="#B08D57"/></g></svg>
+    <div>
+      <div class="wm">Inheriting Islam</div>
+      <div class="sub">Received · Lived · Passed on</div>
+    </div>
+    <div class="arm">The Studio<span>For your board</span></div>
+  </div>
+
+  <div class="lede">
+    <p class="eyebrow">Everything, on one sheet</p>
+    <h1>A website your community owns outright.</h1>
+    <p>Websites for masajid, Islamic nonprofits, schools and Muslim-owned businesses, at a fixed
+      price agreed in writing before any money moves. At the end you own the site, the code, the
+      domain and every login — <b>no platform to keep renting, nothing to be locked into.</b></p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="k">A full build</div>
+      <div class="v">$1,200–$10,000+</div>
+      <div class="n">Three published tiers, smallest masajid lowest by design.</div>
+    </div>
+    <div>
+      <div class="k">Care, monthly</div>
+      <div class="v">From $50</div>
+      <div class="n">Optional. No term, cancel any time, you keep the site.</div>
+    </div>
+    <div>
+      <div class="k">Who owns it</div>
+      <div class="v">You do</div>
+      <div class="n">Code, domain and logins, handed over at launch.</div>
+    </div>
+    <div>
+      <div class="k">Timeline</div>
+      <div class="v">2, 4 or 6 weeks</div>
+      <div class="n">You pick the window; the quote commits to it.</div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div>
+      <h2>What a build includes</h2>
+      <ul>
+        <li><span>A custom design in light and dark — not a theme with your logo dropped in.</span></li>
+        <li><span>Core pages — home, about, programs, events, give, contact — plus what your work needs.</span></li>
+        <li><span><b>Migration</b> off your current platform, with redirects so no existing link breaks.</span></li>
+        <li><span>Donations kept on the halal-friendly platform you already trust, not moved.</span></li>
+        <li><span>Analytics, search, accessibility and speed treated as part of the job, not extras — plus an <b>automated test suite</b> run before launch, and training for your team.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>What a care plan covers</h2>
+      <ul>
+        <li><span><b>Included every month:</b> prayer, jumuʿah and iqāmah times; Ramadan timings; events; announcements; text and photo changes.</span></li>
+        <li><span>Hosting, security patches, backups and uptime monitoring. About two business days' turnaround, time-sensitive items first, and no per-item counter.</span></li>
+        <li><span><b>Quoted separately:</b> a whole new page, a campaign page, a new giving flow — priced in writing first. Cancel whenever; nothing switches off, because you already own it.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sums">
+    <h3>The arithmetic worth doing before you choose anyone</h3>
+    <p class="intro">There are cheaper and even free options, and for a very small masjid one may
+      genuinely be right. But several charge in ways that grow with your community rather than with
+      the work — a cut of every donation, a monthly tier to keep prayer times visible, or a free
+      site you never own.</p>
+    <div class="row">
+      <div>
+        <div class="t">Rented, with a percentage taken</div>
+        <p class="d">One percent of everything given, at a masjid raising $300,000 a year — charged
+          for as long as the site exists, and rising every year your community gives more.</p>
+      </div>
+      <div class="amt">$3,000<span>Per year, forever</span></div>
+    </div>
+    <div class="row own">
+      <div>
+        <div class="t">Owned, paid once</div>
+        <p class="d">Built for you and handed over whole. Care afterwards is optional and monthly,
+          and cancelling it does not take the website with it.</p>
+      </div>
+      <div class="amt">$1,200–$4,000<span>One time</span></div>
+    </div>
+  </div>
+
+  <div class="how">
+    <h2>How it goes</h2>
+    <div class="steps">
+      <div>
+        <div class="n">One</div>
+        <div class="t">A twenty-minute call</div>
+        <p>No pitch, no deck, and nobody asks for a decision on it. If we are the wrong people we say so then.</p>
+      </div>
+      <div>
+        <div class="n">Two</div>
+        <div class="t">A fixed quote in writing</div>
+        <p>Scope, price and a date window. Fifty percent to begin, the balance at launch. Never billed by the hour.</p>
+      </div>
+      <div>
+        <div class="n">Three</div>
+        <div class="t">Build and migrate</div>
+        <p>Reviewed by you on a private link as it is built, not revealed at the end. Two revision rounds included.</p>
+      </div>
+      <div>
+        <div class="n">Four</div>
+        <div class="t">Launch, then stay</div>
+        <p>Training, every login handed over in writing, and a care plan if you want one.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="ask">
+      <h3>What we would ask of you</h3>
+      <p>Your content and logins, and one person who can decide without a six-week committee cycle —
+        the difference between a four-week project and a four-month one.</p>
+    </div>
+    <div class="reach">
+      <b>Hamza Abdul-Tawwaab</b>
+      hamza@inheritingislam.com<br>
+      (470) 404-0648<br>
+      <span class="u">inheritingislam.com/studio</span>
+    </div>
+    <div class="rule-note">
+      Our flagship build — sixteen pages for Al-Maun Neighborly Needs, Las Vegas — is finished, tested
+      and handed over; it goes live when the client makes the domain switch on their side. We do not
+      call a site live until it is. · Inheriting Islam LLC, Georgia.
+    </div>
+  </div>
+
+</body>
+</html>

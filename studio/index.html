@@ -22,8 +22,9 @@
 <script>(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('ii-theme');var t=(q==='dark'||q==='light')?q:(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/studio.css">
 </head>
-<body>
+<body data-arm="studio">
 <a class="skip" href="#main">Skip to content</a>
 
 <header id="header">
@@ -53,12 +54,33 @@
   </div>
 </header>
 
+<div class="armbar">
+  <div class="wrap inner">
+    <a class="who" href="../studio/">The Studio</a>
+    <nav aria-label="The Studio">
+      <a href="../studio/" aria-current="page">Overview</a>
+      <a href="#process">How it goes</a>
+      <a href="#pricing">What it costs</a>
+      <a href="care/">Care plans</a>
+      <a href="almaun/">The work</a>
+    </nav>
+  </div>
+</div>
+
 <div id="mobileNav">
   <a class="mrow" href="../studio/"><span class="vb">Passed on</span>Studio</a>
   <a class="mrow" href="../apps/"><span class="vb">Lived</span>Apps</a>
   <a class="mrow" href="../quran/"><span class="vb">Received</span>Qur'an</a>
   <a class="mrow" href="../podcast/"><span class="vb">Lived</span>Podcast</a>
   <a class="mrow" href="../about/"><span class="vb">The house</span>About</a>
+  <div class="mgroup">
+    <h2>The Studio</h2>
+    <a href="../studio/" aria-current="page">Overview</a>
+    <a href="#process">How a build goes</a>
+    <a href="#pricing">What it costs</a>
+    <a href="care/">Care plans</a>
+    <a href="almaun/">The Al-Maun build</a>
+  </div>
   <a class="btn btn-primary mcta" href="../contact/">Start a project</a>
   <p class="mfoot">hamza@inheritingislam.com<br>(470) 404-0648</p>
 </div>
@@ -93,6 +115,50 @@
           for masajid what he would want done for his own.</p>
         </figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- ============================================ PROBLEM -->
+  <section class="band band-tight edge-top" id="cost">
+    <div class="wrap">
+      <div class="shead shead-split reveal">
+        <div>
+          <p class="eyebrow">What a tired site costs</p>
+          <h2>Your khidma changes lives. The website should carry it.</h2>
+        </div>
+        <p class="small">Our communities do extraordinary work — feeding neighbours, teaching
+          Qur'an, burying the dead with dignity. Online, that work usually goes quiet. These are the
+          four places it leaks out, and none of them announce themselves.</p>
+      </div>
+      <div class="cols reveal">
+        <div class="col">
+          <span class="n">One</span>
+          <h3>Slow, and built for a desktop</h3>
+          <p>Most of your community arrives on a phone, standing in a car park, deciding whether
+            to come on Friday. A site that takes six seconds has already answered them.</p>
+        </div>
+        <div class="col">
+          <span class="n">Two</span>
+          <h3>Giving that leaks</h3>
+          <p>A donate button below the fold, three taps to a form, and a checkout that asks for a
+            login. Every extra tap is a gift that was intended and never arrived.</p>
+        </div>
+        <div class="col">
+          <span class="n">Three</span>
+          <h3>Nobody knows what is working</h3>
+          <p>No analytics, so no evidence — which programme people actually look for, which appeal
+            worked, which page they leave from. Effort poured into the dark.</p>
+        </div>
+        <div class="col">
+          <span class="n">Four</span>
+          <h3>Locked in, and paying for it</h3>
+          <p>A jumu'ah time you cannot change without an invoice, on a platform that quietly bills
+            monthly, holding content you cannot take with you.</p>
+        </div>
+      </div>
+      <p class="small" style="margin-top:1.8em;max-width:64ch">None of that is a design problem.
+        It is what happens when a website is bought from someone who had to be taught what a
+        masjid does.</p>
     </div>
   </section>
 
@@ -153,7 +219,7 @@
   </section>
 
   <!-- ============================================ PROCESS -->
-  <section class="band band-tight band-alt edge-top">
+  <section class="band band-tight band-alt edge-top" id="process">
     <div class="wrap">
       <div class="shead reveal">
         <p class="eyebrow">How it goes</p>
@@ -168,8 +234,71 @@
     </div>
   </section>
 
+  <!-- ============================================ OWNERSHIP -->
+  <section class="band edge-top" id="ownership">
+    <div class="wrap">
+      <div class="shead shead-split reveal">
+        <div>
+          <p class="eyebrow">What you own</p>
+          <h2>The cheapest website can be the most expensive thing you have.</h2>
+        </div>
+        <p class="small">Before the prices below, the part that actually decides what this costs
+          your community over ten years. We are not going to name competitors, but these are all
+          real arrangements a masjid can sign this week.</p>
+      </div>
+
+      <div class="cols reveal">
+        <div class="col">
+          <span class="n">Practice</span>
+          <h3>A percentage of every gift</h3>
+          <p>Some platforms take a cut of everything your community donates. The fee grows with
+            your community's generosity, and with nothing else.</p>
+        </div>
+        <div class="col">
+          <span class="n">Practice</span>
+          <h3>Prayer times behind a tier</h3>
+          <p>Some put the times themselves — the single most-used thing on a masjid's website —
+            on a paid plan, and the free tier caps you at one page.</p>
+        </div>
+        <div class="col">
+          <span class="n">Practice</span>
+          <h3>Free, on their platform</h3>
+          <p>Some give the site away and host it themselves. It is genuinely free, and you never
+            own it, cannot take it with you, and cannot leave without starting again.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:clamp(32px,4.5vw,52px)">
+        <p class="mono" style="color:var(--ink-faint);margin-bottom:12px">The arithmetic a treasurer should do first</p>
+        <div class="rate">
+          <div class="rrow">
+            <div class="lbl">
+              <h3>Rented, with a percentage</h3>
+              <p>One percent of everything given, at a masjid raising $300,000 a year. It is
+                charged for as long as the site exists, and it rises every year the community
+                gives more.</p>
+            </div>
+            <div class="amt">$3,000<span class="per"> /year, forever</span></div>
+          </div>
+          <div class="rrow gift">
+            <div class="lbl">
+              <h3>Owned, once</h3>
+              <p>Built for you and handed over — the code, the domain, every login. Care afterwards
+                is optional, monthly, and cancelling it does not take the site with it.</p>
+            </div>
+            <div class="amt">$1,200–$4,000<span class="per"> once</span></div>
+          </div>
+        </div>
+        <p class="tiny" style="margin-top:14px">Free is sometimes genuinely the right answer, and
+          if your masjid has fifty families and no budget we will tell you which free option to
+          use rather than sell you something. What we will not do is let you sign a percentage
+          away without anyone having done that sum out loud.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================================ PRICING -->
-  <section class="band" id="pricing">
+  <section class="band edge-top" id="pricing">
     <div class="wrap">
       <div class="shead shead-split reveal">
         <div>
@@ -259,27 +388,160 @@
             changes, we requote in writing rather than sending a surprise.</p>
         </div>
       </div>
+
+      <div class="cols-2 reveal" style="margin-top:clamp(30px,4vw,48px);align-items:center">
+        <div>
+          <h3 style="margin-bottom:.5em">You probably cannot decide this alone.</h3>
+          <p class="small">Almost nobody reading this page can approve it by themselves — it goes
+            to an imam, a board, or a spouse. So here is the whole thing on one sheet: what it is,
+            what it costs, what care covers, and what you own at the end. Written for somebody who
+            has not met us and printed for somebody who does not read email.</p>
+        </div>
+        <div>
+          <a class="dl" href="inheriting-islam-for-your-board.pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5M4.5 19.5h15"/></svg>
+            <span>
+              <span class="t">The Studio — for your board</span>
+              <span class="m">PDF · one page · print ready</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ FAQ -->
+  <section class="band band-tight band-alt edge-top" id="questions">
+    <div class="wrap wrap-narrow">
+      <div class="shead reveal">
+        <p class="eyebrow">Before you call</p>
+        <h2>The seven things people write to ask.</h2>
+      </div>
+
+      <div class="faq reveal">
+        <details>
+          <summary>Do we have to move our donations off the platform we use?</summary>
+          <div class="a">
+            <p>No, and we would usually argue against it. If your giving already runs somewhere
+              your community trusts, it stays exactly where it is and we point the site at it.</p>
+            <p>Moving a donation platform mid-project makes our work tidier and your December
+              harder. <a class="link" href="almaun/">We left Al-Maun's donations alone</a> for
+              precisely that reason, and it is the decision on that project we would defend
+              hardest.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do you only work with masajid?</summary>
+          <div class="a"><p>Masajid and Islamic nonprofits are the heart of it. We also build for
+            Islamic schools, MSAs, and Muslim-owned businesses — and that last group matters
+            structurally, because the full-rate work is what pays for the khidma rate above.</p></div>
+        </details>
+        <details>
+          <summary>We are a small masjid with very little money. Is this for us?</summary>
+          <div class="a">
+            <p>Very likely, yes. The khidma rate exists for exactly this and it is subsidised by
+              the larger projects rather than by cutting corners on yours.</p>
+            <p>Write even if the khidma rate still looks out of reach. Nobody here will make you
+              explain your budget twice, and if the honest answer turns out to be a free option
+              rather than us, you will be told that.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How long does it take?</summary>
+          <div class="a">
+            <p>You choose a window at the quote stage — <b>two, four, or six weeks</b> — and that
+              window is what we commit to in writing.</p>
+            <p>We will not promise a site next week. Rush work is a paid exception we usually
+              decline, because the way to hit a date reliably is to agree a sensible one rather
+              than a heroic one.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What do you actually need from us?</summary>
+          <div class="a">
+            <p>Three things: your content (text, photographs, programme details), your logins for
+              the domain and anything we are migrating, and <b>one person who can make a decision</b>
+              without a six-week committee cycle.</p>
+            <p>That third one matters more than people expect. It is the single biggest difference
+              between a four-week project and a four-month one, and it costs nothing.</p>
+            <p>If gathering content is the blocker — and it usually is — say so on the call. A care
+              plan can carry that work rather than the project stalling on it.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How many rounds of changes do we get?</summary>
+          <div class="a">
+            <p>You review the site on a private link while it is being built, not in one big reveal
+              at the end, so most changes happen while they are cheap. Two full rounds of revisions
+              are included in every quote.</p>
+            <p>If what you want turns out to be bigger than what was scoped, we requote it in
+              writing and you decide. Nothing gets built and billed afterwards.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What are we locked into?</summary>
+          <div class="a">
+            <p>Nothing. There is no proprietary platform, no page-builder licence, and no account
+              of ours that your site depends on. It is built on standard, fast, boring technology
+              and handed over whole.</p>
+            <p>If you sacked us the week after launch you would keep a working website, and any
+              competent developer could pick it up. That is the test we build to.</p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============================================ MASJIDBUILDER -->
-  <section class="band band-tight band-alt edge-top" id="masjidbuilder">
-    <div class="wrap cols-2">
-      <div class="reveal">
-        <p class="eyebrow">A faster lane</p>
-        <h2>MasjidBuilder, by Inheriting Islam.</h2>
-        <p class="small" style="margin-top:1.1em">Most masajid need the same six things done well:
-          prayer and jumu'ah times, an events calendar, a giving page, programs, contact, and
-          directions. MasjidBuilder is the standardised line that does exactly that — quicker and
-          cheaper than a bespoke build, without feeling like a template with your name on it.</p>
-        <p class="small">It is the delivery engine behind the khidma rate. If your masjid needs
-          something bespoke, we will tell you on the call and quote the Studio instead.</p>
+  <section class="band edge-top" id="masjidbuilder">
+    <div class="wrap">
+      <div class="shead shead-split reveal">
+        <div>
+          <p class="eyebrow">A faster lane</p>
+          <h2>MasjidBuilder, by Inheriting Islam.</h2>
+        </div>
+        <p class="small">Nearly every masjid needs the same handful of things done properly. Doing
+          those well, in a standard way, is quicker and cheaper than designing them from nothing —
+          and it is the delivery engine that makes the khidma rate possible at all.</p>
       </div>
-      <div class="note reveal">
-        <h3>What it is not</h3>
-        <p>It is not a subscription platform you rent forever. You still own the site at the end,
-          and the care plan is a service, not a hostage arrangement.</p>
-        <p style="margin-top:1em"><a class="link" href="../contact/">Ask whether your masjid fits the fast lane</a></p>
+
+      <div class="cols-2 reveal">
+        <div>
+          <ul class="facts">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span><b>Prayer and jumuʿah times</b> above the fold, with iqāmah — the times your community sets, not only the calculated adhān</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>An <b>events calendar</b> a volunteer can actually keep up to date</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>A <b>giving page</b> on the platform you already use</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span><b>Programmes and services</b> — the janāzah, nikāh, zakat help and new-Muslim support people search for at the worst moment of their week</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span><b>Contact and directions</b> that work on a phone in an unfamiliar neighbourhood</span></li>
+          </ul>
+          <p class="small" style="margin-top:1.4em">If your masjid needs something genuinely bespoke,
+            we will say so on the call and quote <a class="link" href="#pricing">the Studio</a>
+            instead. The fast lane is only cheaper when it actually fits.</p>
+        </div>
+        <div class="stack reveal">
+          <div class="note">
+            <h3>The times are the whole thing</h3>
+            <p>It is the most-used feature on any masjid website and the one most often done badly
+              — large, well-funded masajid link to a PDF, or a printed calendar, or show nothing at
+              all. Getting live, correct, iqāmah-aware times above the fold already beats most of
+              what exists.</p>
+            <p>It is also the thing that must never be wrong. If times cannot be loaded, the page
+              says so rather than showing you yesterday's.</p>
+          </div>
+          <div class="note">
+            <h3>What it is not</h3>
+            <p>Not a subscription platform you rent forever. You own the site at the end exactly as
+              you would with any other build, and the care plan is a service, not a hostage
+              arrangement.</p>
+          </div>
+          <div class="pending">
+            <p><b>MasjidBuilder is getting its own front door.</b> It will live at its own address,
+              still run by this house and still built by the same two people. Until that is
+              finished, this section is the whole of it and there is nowhere else to click.</p>
+            <p style="margin-top:.8em"><a class="link" href="../contact/">Ask whether your masjid
+              fits the fast lane</a></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -384,12 +646,13 @@
         </ul>
       </div>
       <div class="fcol">
-        <h4>The work</h4>
+        <h4>The Studio</h4>
         <ul>
-          <li><a href="../studio/almaun/">Al-Maun case study</a></li>
-          <li><a href="../studio/#pricing">Pricing</a></li>
-          <li><a href="../studio/#masjidbuilder">MasjidBuilder</a></li>
-          <li><a href="../about/">About</a></li>
+          <li><a href="#process">How a build goes</a></li>
+          <li><a href="#pricing">What it costs</a></li>
+          <li><a href="care/">Care plans</a></li>
+          <li><a href="almaun/">Al-Maun case study</a></li>
+          <li><a href="#masjidbuilder">MasjidBuilder</a></li>
         </ul>
       </div>
       <div class="fcol">

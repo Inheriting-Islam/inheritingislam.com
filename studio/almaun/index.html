@@ -22,8 +22,9 @@
 <script>(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('ii-theme');var t=(q==='dark'||q==='light')?q:(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../../assets/css/fonts.css">
 <link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/studio.css">
 </head>
-<body>
+<body data-arm="studio">
 <a class="skip" href="#main">Skip to content</a>
 
 <header id="header">
@@ -53,12 +54,33 @@
   </div>
 </header>
 
+<div class="armbar">
+  <div class="wrap inner">
+    <a class="who" href="../">The Studio</a>
+    <nav aria-label="The Studio">
+      <a href="../">Overview</a>
+      <a href="../#process">How it goes</a>
+      <a href="../#pricing">What it costs</a>
+      <a href="../care/">Care plans</a>
+      <a href="../almaun/" aria-current="page">The work</a>
+    </nav>
+  </div>
+</div>
+
 <div id="mobileNav">
   <a class="mrow" href="../../studio/"><span class="vb">Passed on</span>Studio</a>
   <a class="mrow" href="../../apps/"><span class="vb">Lived</span>Apps</a>
   <a class="mrow" href="../../quran/"><span class="vb">Received</span>Qur'an</a>
   <a class="mrow" href="../../podcast/"><span class="vb">Lived</span>Podcast</a>
   <a class="mrow" href="../../about/"><span class="vb">The house</span>About</a>
+  <div class="mgroup">
+    <h2>The Studio</h2>
+    <a href="../">Overview</a>
+    <a href="../#process">How a build goes</a>
+    <a href="../#pricing">What it costs</a>
+    <a href="../care/">Care plans</a>
+    <a href="../almaun/" aria-current="page">The Al-Maun build</a>
+  </div>
   <a class="btn btn-primary mcta" href="../../contact/">Start a project</a>
   <p class="mfoot">hamza@inheritingislam.com<br>(470) 404-0648</p>
 </div>
@@ -94,7 +116,7 @@
   </section>
 
   <!-- ============================================ THE GAP -->
-  <section class="band band-alt edge-top">
+  <section class="band band-alt edge-top" id="gap">
     <div class="wrap cols-2">
       <div class="reveal">
         <p class="eyebrow">The gap</p>
@@ -112,7 +134,7 @@
   </section>
 
   <!-- ============================================ DECISIONS -->
-  <section class="band">
+  <section class="band" id="decisions">
     <div class="wrap">
       <div class="shead shead-split reveal">
         <div>
@@ -174,7 +196,7 @@
   </section>
 
   <!-- ============================================ SHOTS -->
-  <section class="band band-tight band-alt edge-top">
+  <section class="band band-tight band-alt edge-top" id="build">
     <div class="wrap">
       <div class="shead reveal">
         <p class="eyebrow">The build</p>
@@ -182,6 +204,29 @@
         <p class="lede">Home · Our Story · Programs · NutriPass · Impact · Events &amp; Prayer ·
           Get Involved · Give · Contact · Survey · Youth Conference · In Memoriam · Directions ·
           Privacy · Terms · Donor Policy.</p>
+      </div>
+
+      <div class="metrics reveal" style="margin-bottom:clamp(26px,4vw,44px)">
+        <div>
+          <span class="k">Pages</span>
+          <span class="n">16</span>
+          <p>Custom, each one written and laid out for what it actually does.</p>
+        </div>
+        <div>
+          <span class="k">Built for the phone</span>
+          <span class="n">100%</span>
+          <p>Every page checked at 390px. No page overflows sideways.</p>
+        </div>
+        <div>
+          <span class="k">Giving disrupted</span>
+          <span class="n">0</span>
+          <p>Donations left on the platform that already worked, deliberately.</p>
+        </div>
+        <div>
+          <span class="k">Tests</span>
+          <span class="n">Auto</span>
+          <p>A suite that runs on every change, committed with the site.</p>
+        </div>
       </div>
 
       <div class="figure-pair reveal">
@@ -208,13 +253,20 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>Search metadata, sitemap, and analytics ready to switch on at launch</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>Accessible base: focus states, alt text, reduced-motion respected</span></li>
           </ul>
+          <div class="note">
+            <h3>What happens after a handover like this</h3>
+            <p>The tests exist because volunteers will edit this site for years, and the logins were
+              handed over in writing because it is theirs. Neither of those requires us to still be
+              involved — which is exactly why <a class="link" href="../care/">a care plan</a> is an
+              offer rather than a condition.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================ STATUS -->
-  <section class="band">
+  <section class="band" id="status">
     <div class="wrap cols-2">
       <div class="reveal">
         <p class="eyebrow">Where it stands</p>
@@ -238,7 +290,7 @@
   </section>
 
   <!-- ============================================ CLIENT VOICE -->
-  <section class="band band-tight band-alt edge-top">
+  <section class="band band-tight band-alt edge-top" id="voice">
     <div class="wrap cols-2">
       <div class="reveal">
         <p class="eyebrow">Client voice</p>
@@ -295,12 +347,13 @@
         </ul>
       </div>
       <div class="fcol">
-        <h4>The work</h4>
+        <h4>The Studio</h4>
         <ul>
-          <li><a href="../../studio/almaun/">Al-Maun case study</a></li>
-          <li><a href="../../studio/#pricing">Pricing</a></li>
-          <li><a href="../../studio/#masjidbuilder">MasjidBuilder</a></li>
-          <li><a href="../../about/">About</a></li>
+          <li><a href="../#process">How a build goes</a></li>
+          <li><a href="../#pricing">What it costs</a></li>
+          <li><a href="../care/">Care plans</a></li>
+          <li><a href="../almaun/">Al-Maun case study</a></li>
+          <li><a href="../#masjidbuilder">MasjidBuilder</a></li>
         </ul>
       </div>
       <div class="fcol">
