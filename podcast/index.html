@@ -22,8 +22,11 @@
 <script>(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('ii-theme');var t=(q==='dark'||q==='light')?q:(s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/podcast.css">
 </head>
-<body>
+<!-- data-feed="off" until there is a feed. Switch to "live" and fill in the
+     hrefs in the .platforms block below, and the follow links appear. -->
+<body data-arm="podcast" data-feed="off">
 <a class="skip" href="#main">Skip to content</a>
 
 <header id="header">
@@ -53,12 +56,29 @@
   </div>
 </header>
 
+<div class="armbar">
+  <div class="wrap inner">
+    <a class="who" href="../podcast/">The Podcast</a>
+    <nav aria-label="The Podcast">
+      <a href="../podcast/" aria-current="page">Overview</a>
+      <a href="#episodes">Episodes</a>
+      <a href="guests/">Be a guest</a>
+    </nav>
+  </div>
+</div>
+
 <div id="mobileNav">
   <a class="mrow" href="../studio/"><span class="vb">Passed on</span>Studio</a>
   <a class="mrow" href="../apps/"><span class="vb">Lived</span>Apps</a>
   <a class="mrow" href="../quran/"><span class="vb">Received</span>Qur'an</a>
   <a class="mrow" href="../podcast/"><span class="vb">Lived</span>Podcast</a>
   <a class="mrow" href="../about/"><span class="vb">The house</span>About</a>
+  <div class="mgroup">
+    <h2>The Podcast</h2>
+    <a href="../podcast/" aria-current="page">Overview</a>
+    <a href="#episodes">Episodes</a>
+    <a href="guests/">Be a guest</a>
+  </div>
   <a class="btn btn-primary mcta" href="../contact/">Start a project</a>
   <p class="mfoot">hamza@inheritingislam.com<br>(470) 404-0648</p>
 </div>
@@ -74,7 +94,7 @@
           they live it now, and what they intend to hand on. Elders, reverts, imams, builders, and
           people whose names nobody knows.</p>
         <div class="btns">
-          <a class="btn btn-primary" href="mailto:hamza@inheritingislam.com?subject=Podcast%20%E2%80%94%20guest&amp;body=Assalamu%20alaikum%2C%0D%0A%0D%0AAbout%20being%20a%20guest%3A%0D%0A%0D%0AName%3A%20%0D%0ACity%3A%20%0D%0AThe%20story%20I%27d%20tell%3A%20">Be a guest
+          <a class="btn btn-primary" href="guests/">Be a guest
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h13M12 5.5 18.5 12 12 18.5"/></svg>
           </a>
           <a class="btn btn-ghost" href="mailto:hamza@inheritingislam.com?subject=Podcast%20%E2%80%94%20tell%20me%20when%20it%20starts&amp;body=Assalamu%20alaikum%2C%20please%20let%20me%20know%20when%20season%20one%20is%20out.%0D%0A%0D%0AName%3A%20">Tell me when it starts</a>
@@ -165,6 +185,68 @@
     </div>
   </section>
 
+  <!-- ============================================ EPISODES -->
+  <section class="band edge-top" id="episodes">
+    <div class="wrap">
+      <div class="shead shead-split reveal">
+        <div>
+          <p class="eyebrow">The conversations</p>
+          <h2>Season one, in order.</h2>
+        </div>
+        <p class="small">Every episode gets a page here with the <b>whole conversation written
+          out</b>, not a summary. Most people will read rather than listen, and a transcript is the
+          part that survives, that can be searched, and that a grandchild finds in thirty years.</p>
+      </div>
+
+      <!-- Each episode is one .ep block. Copy tools/episode-template.html for
+           the page, paste a card here, and that is the whole publishing step. -->
+      <div class="episodes reveal">
+        <div class="ep" style="cursor:default">
+          <span class="no">One</span>
+          <div>
+            <p class="who">The first conversation</p>
+            <p class="said">Recorded when it is recorded. Nothing is listed here before it exists,
+              and nothing here is a placeholder for a person we have not actually sat with.</p>
+          </div>
+          <div class="meta"><span>Not yet</span></div>
+        </div>
+      </div>
+
+      <div class="pending reveal" style="margin-top:clamp(24px,3vw,34px);max-width:70ch">
+        <p><b>Nothing has been recorded yet.</b> When the season is banked, each conversation
+          appears here with its transcript, and the follow links below switch on the same day.</p>
+      </div>
+
+      <!-- Written now, hidden until there is a feed. One attribute on <body>
+           turns these on; see assets/css/podcast.css. -->
+      <div class="reveal" style="margin-top:clamp(26px,3.4vw,38px)">
+        <p class="mono when-live" style="color:var(--ink-faint);margin-bottom:12px">Listen where you already listen</p>
+        <div class="platforms when-live">
+          <a href="#" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M7.4 9.6c3-.8 6.2-.5 8.9 1M8 12.6c2.4-.6 5-.4 7.2.8M8.6 15.4c1.9-.4 3.9-.3 5.6.6"/></svg>
+            <span>Spotify</span>
+          </a>
+          <a href="#" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="9.4" r="2.6"/><path d="M9.6 20.4c.3-2.6.6-4 2.4-4s2.1 1.4 2.4 4M5.6 16.2a8.2 8.2 0 1 1 12.8 0"/></svg>
+            <span>Apple Podcasts</span>
+          </a>
+          <a href="#" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.6" y="5" width="18.8" height="14" rx="3.4"/><path d="M10.4 9.4 15 12l-4.6 2.6Z"/></svg>
+            <span>YouTube</span>
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 18.2a1 1 0 1 0 0-.1M5 11.5a7.5 7.5 0 0 1 7.5 7.5M5 5a14 14 0 0 1 14 14"/></svg>
+            <span>RSS</span>
+          </a>
+        </div>
+        <p class="tiny until-live" style="max-width:64ch">There are no platform links here yet, and
+          that is deliberate — <b>a follow button that leads to an empty feed is a small lie.</b>
+          They appear the day there is something behind them, and the feed will live at an address
+          on this domain so it can never be taken away from us.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="band band-tight cta-band">
     <div class="wrap cta-inner">
       <div>
@@ -204,13 +286,11 @@
         </ul>
       </div>
       <div class="fcol">
-        <h4>The work</h4>
+        <h4>The Podcast</h4>
         <ul>
-          <li><a href="../studio/almaun/">Al-Maun case study</a></li>
-          <li><a href="../studio/#pricing">Pricing</a></li>
-          <li><a href="../studio/care/">Care plans</a></li>
-          <li><a href="../studio/#masjidbuilder">MasjidBuilder</a></li>
-          <li><a href="../about/">About</a></li>
+          <li><a href="../podcast/#episodes">Episodes</a></li>
+          <li><a href="guests/">Be a guest</a></li>
+          <li><a href="../about/">About the house</a></li>
         </ul>
       </div>
       <div class="fcol">

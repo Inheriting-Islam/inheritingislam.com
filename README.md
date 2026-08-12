@@ -3,7 +3,7 @@
 The house site for **Inheriting Islam** — the Studio, the Apps, Inheriting Qur'an, and the Podcast.
 
 Static HTML. No framework, no build step, no backend, and no third-party requests of any kind.
-Sixteen pages, about 2.2 MB in total including every image and both webfont families.
+Seventeen pages, about 2.3 MB in total including every image and both webfont families.
 
 **Deploying it for the first time? → [`DEPLOY.md`](DEPLOY.md).** That is the build plan: four
 gates, starting with the claims on the site that only Hamza can confirm.
@@ -52,7 +52,8 @@ quran/cohorts/              How a cohort runs, the schedule, the waitlist
 quran/masajid/              Hosting a cohort + a one-page PDF for a board
 quran/teacher/              Who teaches it, what the program is not, endorsements (empty)
 quran/verify/               The certificate register — noindex, empty until the first cohort
-podcast/                    Season one, in production
+podcast/                    Season one, in production — plus the episode index
+podcast/guests/             Be a guest, or recommend the person who should be
 about/                      Hamza, Khadija, the mīrāth thesis, the five rules
 contact/                    Start a project — intake form (mailto) + direct contact
 404.html
@@ -62,6 +63,7 @@ assets/css/fonts.css        Cormorant Garamond, Source Sans 3, Amiri — base64 
 assets/css/site.css         The entire design system: tokens, both themes, every component
 assets/css/quran.css        The Qur'an arm's skin: warmer bands, its own components
 assets/css/studio.css       The Studio arm: the care ladder and the case-study metrics
+assets/css/podcast.css      The Podcast arm: episode cards, transcripts, the feed switch
 assets/js/site.js           Theme, nav, reveal, mailto composer, clipboard (~4 KB)
 assets/js/quran.js          Placement check, letter panel, time zone, level hand-off (~7 KB)
 assets/img/                 Hero artwork, app tiles, Al-Maun screenshots, share card, icons
@@ -73,6 +75,7 @@ tools/build-fonts.py        Rebuilds fonts.css from Google Fonts, subset to what
 tools/build-onepager.py     Renders both leave-behind PDFs; fails if either spills past one page
 tools/build-certificates.py Blank specimens for the site, or real PDFs from a CSV of graduates
 tools/certificate.html      One template, three variants, driven by query parameters
+tools/episode-template/     Copy this folder to podcast/<guest-slug>/ to publish an episode
 
 _internal/NOTES.md          Delivery notes — read before publishing
 _internal/NOTES-QURAN.md    Delivery notes for the Qur'an section

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Podcast — for a guest</title>
+<!-- Source for podcast/guests/the-podcast-for-guests.pdf.
+     Lives in tools/ so a fresh clone can rebuild it (_internal/ is gitignored);
+     check.py skips tools/, so it is never audited as a page.
+     Render:  python3 -m http.server 8080
+              python3 tools/build-onepager.py --only guests
+     Letter, ONE page. For handing to an elder who does not read email.
+     Nothing here may claim anything the website does not. -->
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<style>
+  @page{size:Letter;margin:0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    width:8.5in;height:11in;padding:.46in .58in .38in;
+    background:#F5F0E6;color:#14201B;
+    font-family:'Source Sans 3',system-ui,sans-serif;
+    font-size:8.05pt;line-height:1.35;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    display:flex;flex-direction:column
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0;line-height:1.06}
+  p{margin:0 0 .6em}
+  b{font-weight:700}
+  .eyebrow{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.6pt;
+    letter-spacing:.24em;text-transform:uppercase;color:#674B13;margin:0 0 .5em
+  }
+
+  /* --- masthead --- */
+  .top{display:flex;align-items:center;gap:10px;padding-bottom:9px;border-bottom:1.4px solid #183C34}
+  .top svg{width:58px;height:28px;flex:none}
+  .top .wm{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:14pt;line-height:1}
+  .top .sub{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.22em;
+    text-transform:uppercase;color:#674B13;margin-top:3px
+  }
+  .top .arm{
+    margin-left:auto;text-align:right;font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:12.5pt;font-weight:600;line-height:1.1
+  }
+  .top .arm span{
+    display:block;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;
+    letter-spacing:.2em;text-transform:uppercase;color:#4B564C;margin-top:3px
+  }
+
+  /* --- lede --- */
+  .lede{padding:8px 0 8px;border-bottom:1px solid rgba(20,32,27,.18)}
+  .lede h1{font-size:17pt;font-weight:400;letter-spacing:-.012em;max-width:26ch;margin-bottom:.26em}
+  .lede p{font-size:8.8pt;line-height:1.36;color:#2C3A32;max-width:66ch;margin:0}
+
+  /* --- facts strip --- */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(20,32,27,.18);
+    border:1px solid rgba(20,32,27,.18);margin:8px 0}
+  .facts div{background:#F5F0E6;padding:6px 9px}
+  .facts .k{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.17em;
+    text-transform:uppercase;color:#4B564C;margin-bottom:4px
+  }
+  .facts .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:12pt;font-weight:600;line-height:1.08}
+  .facts .n{font-size:7.2pt;color:#46544B;margin-top:2px;line-height:1.28}
+
+  /* --- split --- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:0}
+  .split h2{font-size:11.4pt;margin-bottom:.45em}
+  ul{list-style:none;margin:0;padding:0}
+  li{display:grid;grid-template-columns:8px 1fr;gap:7px;padding:2.8px 0;align-items:start}
+  li::before{content:"";width:4.5px;height:4.5px;margin-top:5px;background:#B08D57;transform:rotate(45deg)}
+
+  /* --- the arithmetic --- */
+  .sums{
+    margin-top:7px;padding:10px 12px;background:#183C34;color:#F5F0E6;
+  }
+  .sums h3{font-size:11.4pt;color:#F5F0E6;margin-bottom:.45em}
+  .sums .intro{font-size:7.6pt;line-height:1.34;color:#DAD8D2;margin:0 0 7px;max-width:96ch}
+  .sums .row{
+    display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
+    padding:5px 0;border-top:1px solid rgba(217,180,120,.32)
+  }
+  .sums .row .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:10.5pt;font-weight:600}
+  .sums .row .d{font-size:7.5pt;color:#DAD8D2;margin:1px 0 0;line-height:1.32}
+  .sums .row .amt{
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:14pt;font-weight:600;
+    white-space:nowrap;text-align:right;line-height:1
+  }
+  .sums .row .amt span{
+    display:block;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6pt;
+    letter-spacing:.16em;text-transform:uppercase;color:#D9B478;margin-top:3px
+  }
+  .sums .row.own .amt{color:#D9B478}
+
+  /* --- how --- */
+  .how{margin-top:6px}
+  .how h2{font-size:11.4pt;margin-bottom:.4em}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(20,32,27,.18);
+    border:1px solid rgba(20,32,27,.18)}
+  .steps div{background:#F5F0E6;padding:6px 8px 7px}
+  .steps .n{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.17em;
+    text-transform:uppercase;color:#674B13;margin-bottom:4px
+  }
+  .steps .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:9.6pt;font-weight:600;line-height:1.12;margin-bottom:2px}
+  .steps p{font-size:7.1pt;line-height:1.3;color:#46544B;margin:0}
+
+  /* --- foot --- */
+  .foot{
+    margin-top:auto;padding-top:8px;border-top:1.4px solid #183C34;
+    display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end
+  }
+  .foot .ask{max-width:56ch}
+  .foot .ask h3{font-size:10.6pt;margin-bottom:.24em}
+  .foot .ask p{font-size:7.9pt;color:#46544B;margin:0}
+  .foot .reach{text-align:right;font-size:8.2pt;line-height:1.55}
+  .foot .reach b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:10.4pt;font-weight:600}
+  .foot .reach .u{color:#674B13;font-weight:600}
+  .rule-note{
+    grid-column:1/-1;margin-top:6px;padding-top:5px;border-top:1px solid rgba(20,32,27,.18);
+    font-size:6.9pt;color:#4B564C;line-height:1.36
+  }
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <svg viewBox="0 0 132 64" fill="none" aria-hidden="true"><g stroke-width="9" stroke-linejoin="miter"><path d="M66 5 93 32 66 59 39 32Z" stroke="#B08D57"/><path d="M33 5 60 32 33 59 6 32Z" stroke="#183C34"/><path d="M99 5 126 32 99 59 72 32Z" stroke="#183C34"/><path d="M39 32 66 59 93 32" stroke="#B08D57"/></g></svg>
+    <div>
+      <div class="wm">Inheriting Islam</div>
+      <div class="sub">Received &middot; Lived &middot; Passed on</div>
+    </div>
+    <div class="arm">The Podcast<span>An invitation</span></div>
+  </div>
+
+  <div class="lede">
+    <p class="eyebrow">One conversation, recorded properly</p>
+    <h1>Somebody handed it to you. We would like that recorded.</h1>
+    <p>This is one long conversation with one person about the deen they were given, how they carry
+      it now, and what they intend to leave behind. <b>You do not have to be well known and you do
+      not have to be a scholar.</b> Most of what gets passed on in our communities moves through
+      people who were never on a stage.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="k">How long</div>
+      <div class="v">One sitting</div>
+      <div class="n">Usually an hour or two. Breaks whenever you want one.</div>
+    </div>
+    <div>
+      <div class="k">Where</div>
+      <div class="v">Your own room</div>
+      <div class="n">Remote. A link in your browser — nothing to install.</div>
+    </div>
+    <div>
+      <div class="k">The questions</div>
+      <div class="v">Sent in advance</div>
+      <div class="n">All three. There is no fourth one waiting.</div>
+    </div>
+    <div>
+      <div class="k">Final say</div>
+      <div class="v">Yours</div>
+      <div class="n">Nothing is published that you are unhappy with.</div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div>
+      <h2>The three questions</h2>
+      <ul>
+        <li><span><b>What was handed to you.</b> Who taught you, what house you came up in, what you were given before you were old enough to choose any of it.</span></li>
+        <li><span><b>How you carry it now.</b> The ordinary week, not the highlights. What it costs, and what you have had to work out for yourself.</span></li>
+        <li><span><b>What you are handing forward.</b> To children, students, a community — and what you are afraid will not survive you.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>What we will not do</h2>
+      <ul>
+        <li><span>We will not edit you into saying something you did not say.</span></li>
+        <li><span>We will not ask you to comment on the news, or on anybody else.</span></li>
+        <li><span><b>We will not publish an episode you are unhappy with</b> — including if you change your mind afterwards. That is the end of it, with no argument.</span></li>
+        <li><span>You get the recording. We are not asking for exclusivity over your own words.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sums">
+    <h3>Why this show exists</h3>
+    <p class="intro">Our tradition has always cared who you heard it from. A great deal of what
+      holds our communities together was never written down — it was carried by people who taught,
+      fed, married and buried others for decades, and much of it leaves with them.</p>
+    <div class="row">
+      <div>
+        <div class="t">The conversation is the point</div>
+        <p class="d">Every episode gets its own page with the whole thing written out — not a
+          summary. It can be searched, quoted, and found by somebody's grandchild in thirty years.</p>
+      </div>
+      <div class="amt">Written<span>Not just heard</span></div>
+    </div>
+    <div class="row own">
+      <div>
+        <div class="t">Recorded before it is too late</div>
+        <p class="d">Season one publishes as audio; we record video as well and keep it. You can
+          always take the sound out of a picture. Nobody has ever recovered a face afterwards.</p>
+      </div>
+      <div class="amt">Kept<span>For your family too</span></div>
+    </div>
+  </div>
+
+  <div class="how">
+    <h2>How it goes</h2>
+    <div class="steps">
+      <div>
+        <div class="n">One</div>
+        <div class="t">You say yes, or maybe</div>
+        <p>A short call first if you want one. No commitment on it.</p>
+      </div>
+      <div>
+        <div class="n">Two</div>
+        <div class="t">The questions arrive</div>
+        <p>A week or so ahead, so you can think rather than react.</p>
+      </div>
+      <div>
+        <div class="n">Three</div>
+        <div class="t">One conversation</div>
+        <p>A link in your browser at a time that suits you. We test it before we start.</p>
+      </div>
+      <div>
+        <div class="n">Four</div>
+        <div class="t">You hear it first</div>
+        <p>Before anyone else, and nothing goes out without you being happy with it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="ask">
+      <h3>If this is not for you</h3>
+      <p>Say so and that is genuinely the end of it — nobody will be pestered. If somebody else
+        came to mind while reading this, tell us who instead. That is how most of these start.</p>
+    </div>
+    <div class="reach">
+      <b>Hamza Abdul-Tawwaab</b>
+      hamza@inheritingislam.com<br>
+      (470) 404-0648<br>
+      <span class="u">inheritingislam.com/podcast/guests</span>
+    </div>
+    <div class="rule-note">
+      Season one is being recorded now and nothing has been published yet. There is no back
+      catalogue, and we are not going to invent one. &middot; Inheriting Islam LLC, Georgia.
+    </div>
+  </div>
+
+</body>
+</html>

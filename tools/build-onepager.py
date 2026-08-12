@@ -25,6 +25,8 @@ SHEETS = {
                 "quran/masajid/inheriting-quran-for-masajid.pdf"),
     "board":   ("onepager-board.html",
                 "studio/inheriting-islam-for-your-board.pdf"),
+    "guests":  ("onepager-guests.html",
+                "podcast/guests/the-podcast-for-guests.pdf"),
 }
 
 args = [a for a in sys.argv[1:]]
