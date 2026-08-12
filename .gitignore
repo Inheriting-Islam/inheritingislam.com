@@ -3,3 +3,4 @@ _internal/
 node_modules/
 *.log
 tools/shots/
+_issued/

@@ -3,7 +3,7 @@
 The house site for **Inheriting Islam** — the Studio, the Apps, Inheriting Qur'an, and the Podcast.
 
 Static HTML. No framework, no build step, no backend, and no third-party requests of any kind.
-Fifteen pages, about 2 MB in total including every image and both webfont families.
+Sixteen pages, about 2.2 MB in total including every image and both webfont families.
 
 **Deploying it for the first time? → [`DEPLOY.md`](DEPLOY.md).** That is the build plan: four
 gates, starting with the claims on the site that only Hamza can confirm.
@@ -51,6 +51,7 @@ quran/lesson/               Lesson one in full — letters, shapes, vowels, the 
 quran/cohorts/              How a cohort runs, the schedule, the waitlist
 quran/masajid/              Hosting a cohort + a one-page PDF for a board
 quran/teacher/              Who teaches it, what the program is not, endorsements (empty)
+quran/verify/               The certificate register — noindex, empty until the first cohort
 podcast/                    Season one, in production
 about/                      Hamza, Khadija, the mīrāth thesis, the five rules
 contact/                    Start a project — intake form (mailto) + direct contact
@@ -70,6 +71,8 @@ tools/check.py              The structural audit (also runs in CI)
 tools/render-audit.py       Browser sweep: overflow at every breakpoint, both themes
 tools/build-fonts.py        Rebuilds fonts.css from Google Fonts, subset to what we use
 tools/build-onepager.py     Renders both leave-behind PDFs; fails if either spills past one page
+tools/build-certificates.py Blank specimens for the site, or real PDFs from a CSV of graduates
+tools/certificate.html      One template, three variants, driven by query parameters
 
 _internal/NOTES.md          Delivery notes — read before publishing
 _internal/NOTES-QURAN.md    Delivery notes for the Qur'an section

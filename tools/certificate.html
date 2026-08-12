@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inheriting Qur'an — certificate</title>
+<!-- Source for the three graduation certificates.
+     Rendered by tools/build-certificates.py — see that file for usage.
+
+     One template, three variants, driven by query parameters:
+       ?type=qaidah|tajwid|hifz   which certificate
+       &name=            the student's name in English
+       &ar=              the student's name in Arabic
+       &g=m|f            grammatical gender, so the Arabic verb agrees
+       &id=              certificate number, e.g. IQ-Q-1448-014
+       &hijri=           Hijri date, as text
+       &greg=            Gregorian date, as text
+
+     With NO student parameters it renders BLANK — an unfilled certificate.
+     That is the version published on the site: there is nothing to edit,
+     it reads as premium stationery rather than someone else's document,
+     and a forger would have to add a name that verification then catches.
+
+     Landscape Letter, print colours. Nothing on this sheet may claim
+     anything the website does not. -->
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<style>
+  @page{size:Letter landscape;margin:0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    width:11in;height:8.5in;
+    background:#F5F0E6;color:#14201B;
+    font-family:'Source Sans 3',system-ui,sans-serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    display:flex;align-items:stretch;justify-content:center;
+    padding:.34in
+  }
+
+  /* The frame: a double hairline with a diamond at each corner — the same
+     rotated-square motif the site uses for its spine and arm bar, so this
+     belongs to the house without borrowing the visual language of an ijāzah,
+     which it must never be mistaken for. */
+  .sheet{
+    flex:1;position:relative;border:1.6px solid #183C34;
+    padding:.46in .62in .4in;
+    display:flex;flex-direction:column;text-align:center
+  }
+  .sheet::before{
+    content:"";position:absolute;inset:5px;border:.7px solid #B08D57;pointer-events:none
+  }
+  .corner{position:absolute;width:9px;height:9px;background:#B08D57;transform:rotate(45deg)}
+  .corner.tl{top:-5px;left:-5px} .corner.tr{top:-5px;right:-5px}
+  .corner.bl{bottom:-5px;left:-5px} .corner.br{bottom:-5px;right:-5px}
+
+  /* --- masthead --- */
+  .top{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:.16in}
+  .top svg{width:52px;height:25px;flex:none}
+  .top .wm{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:13.5pt;line-height:1;text-align:left}
+  .top .sub{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:5.8pt;letter-spacing:.22em;
+    text-transform:uppercase;color:#674B13;margin-top:3px;text-align:left
+  }
+
+  /* --- titles --- */
+  .ar-title{
+    font-family:'Amiri','Geeza Pro',serif;direction:rtl;
+    font-size:27pt;line-height:1.6;color:#183C34;margin:0 0 .04in
+  }
+  .en-title{
+    font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;
+    font-size:15pt;letter-spacing:.03em;line-height:1.2;margin:0
+  }
+  .rule{
+    width:3.1in;height:1px;background:#B08D57;opacity:.55;margin:.17in auto;
+    position:relative;flex:none
+  }
+  .rule::after{
+    content:"";position:absolute;top:-3px;left:50%;margin-left:-3.5px;
+    width:7px;height:7px;background:#F5F0E6;border:1px solid #B08D57;transform:rotate(45deg)
+  }
+
+  /* --- the award --- */
+  .lead{
+    font-family:'Source Sans 3',sans-serif;font-size:9pt;letter-spacing:.19em;
+    text-transform:uppercase;color:#4B564C;font-weight:600;margin:0 0 .12in
+  }
+  .name{
+    font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;
+    font-size:31pt;line-height:1.1;letter-spacing:-.01em;color:#14201B;
+    min-height:.52in;display:flex;align-items:center;justify-content:center
+  }
+  .name-ar{
+    font-family:'Amiri','Geeza Pro',serif;direction:rtl;
+    font-size:20pt;line-height:1.7;color:#183C34;min-height:.36in
+  }
+  /* A blank certificate shows the line it will be written on. */
+  .name-line{
+    width:5.2in;height:1px;background:rgba(20,32,27,.34);margin:.06in auto .1in
+  }
+  body.filled .name-line{display:none}
+
+  .body-en{
+    font-family:'Source Sans 3',sans-serif;font-size:10.4pt;line-height:1.55;
+    color:#2C3A32;max-width:6.9in;margin:.1in auto 0
+  }
+  .body-ar{
+    font-family:'Amiri','Geeza Pro',serif;direction:rtl;
+    font-size:15pt;line-height:2;color:#183C34;max-width:8in;margin:.1in auto 0
+  }
+
+  /* --- the three tracks, with this one marked --- */
+  .track{display:flex;align-items:center;justify-content:center;gap:14px;margin:.2in 0 0}
+  .track .step{display:flex;align-items:center;gap:8px}
+  .track .dot{width:8px;height:8px;transform:rotate(45deg);border:1px solid #B08D57;background:transparent}
+  .track .step.done .dot{background:#B08D57}
+  .track .lb{
+    font-family:'Source Sans 3',sans-serif;font-size:6.4pt;letter-spacing:.16em;
+    text-transform:uppercase;color:#8a8578;font-weight:600
+  }
+  .track .step.done .lb{color:#674B13}
+  .track .sep{width:26px;height:1px;background:#B08D57;opacity:.4}
+
+  /* --- foot --- */
+  .award{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .foot{
+    padding-top:.16in;display:grid;
+    grid-template-columns:1fr 1.2fr 1fr;gap:.3in;align-items:end;text-align:center
+  }
+  .foot .k{
+    font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:6.2pt;letter-spacing:.18em;
+    text-transform:uppercase;color:#4B564C;margin-bottom:5px
+  }
+  .foot .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:11pt;font-weight:600;line-height:1.25;min-height:.19in}
+  .foot .v .sm{display:block;font-family:'Source Sans 3',sans-serif;font-weight:400;font-size:7.6pt;color:#46544B;margin-top:2px}
+  .foot .sigline{border-top:1px solid rgba(20,32,27,.4);padding-top:6px;margin-top:.34in}
+  .foot .sigline .nm{font-family:'Cormorant Garamond',Georgia,serif;font-size:11.5pt;font-weight:600}
+  .foot .sigline .rl{font-family:'Source Sans 3',sans-serif;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#4B564C;margin-top:3px}
+  .verify{
+    margin-top:.13in;font-family:'Source Sans 3',sans-serif;font-size:6.6pt;
+    color:#4B564C;line-height:1.5;letter-spacing:.01em
+  }
+  .verify b{font-weight:600;color:#674B13}
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+
+    <div class="top">
+      <svg viewBox="0 0 132 64" fill="none" aria-hidden="true"><g stroke-width="9" stroke-linejoin="miter"><path d="M66 5 93 32 66 59 39 32Z" stroke="#B08D57"/><path d="M33 5 60 32 33 59 6 32Z" stroke="#183C34"/><path d="M99 5 126 32 99 59 72 32Z" stroke="#183C34"/><path d="M39 32 66 59 93 32" stroke="#B08D57"/></g></svg>
+      <div>
+        <div class="wm">Inheriting Qur'an</div>
+        <div class="sub">Inheriting Islam · Received · Lived · Passed on</div>
+      </div>
+    </div>
+
+    <div class="award">
+    <p class="ar-title" lang="ar" dir="rtl" data-ar-title></p>
+    <p class="en-title" data-en-title></p>
+
+    <div class="rule"></div>
+
+    <p class="lead">This is to certify that</p>
+    <div class="name" data-name></div>
+    <div class="name-line"></div>
+    <div class="name-ar" lang="ar" dir="rtl" data-name-ar></div>
+
+    <p class="body-ar" lang="ar" dir="rtl" data-body-ar></p>
+    <p class="body-en" data-body-en></p>
+
+    <div class="track" data-track></div>
+    </div>
+
+    <div class="foot">
+      <div>
+        <div class="k">Dated</div>
+        <div class="v" data-hijri></div>
+        <div class="v" style="min-height:0"><span class="sm" data-greg></span></div>
+      </div>
+      <div>
+        <div class="sigline">
+          <div class="nm">Hamza Abdul-Tawwaab</div>
+          <div class="rl">Teacher · Inheriting Qur'an</div>
+        </div>
+      </div>
+      <div>
+        <div class="k">Certificate no.</div>
+        <div class="v" data-id></div>
+      </div>
+      <p class="verify" style="grid-column:1/-1">
+        This certifies what was demonstrated to a teacher. <b>It is not an ijāzah</b> and confers no
+        licence to transmit. Verify at inheritingislam.com/quran/verify
+      </p>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var g = q.get('g') === 'f' ? 'f' : 'm';
+
+  /* The Arabic uses the classical constructions: قرأ على for reciting to a
+     teacher, عن ظهر قلب for by heart, سمّع for reciting memorised material.
+     Verb forms carry both genders because a lot of these students are women
+     and a certificate that gets her grammar wrong is worse than none. */
+  var V = {
+    qaidah: {
+      arTitle: 'شَهَادَةُ إِتْمَامِ الْقَاعِدَة',
+      enTitle: 'Certificate of Completion — the Qāʿidah',
+      arBody: g === 'f'
+        ? 'قَدْ أَتَمَّتِ الْقَاعِدَةَ، وَقَرَأَتْ بَيْنَ يَدَيْ مُعَلِّمِهَا قِرَاءَةً صَحِيحَةً'
+        : 'قَدْ أَتَمَّ الْقَاعِدَةَ، وَقَرَأَ بَيْنَ يَدَيْ مُعَلِّمِهِ قِرَاءَةً صَحِيحَةً',
+      enBody: 'has completed the Qāʿidah and read aloud, from unseen text, before the teacher — '
+            + 'joining the letters, sounding them from their places, and reading correctly without prompting.',
+      step: 1
+    },
+    tajwid: {
+      arTitle: 'شَهَادَةُ قِرَاءَةِ جُزْءِ عَمَّ بِالتَّجْوِيد',
+      enTitle: 'Certificate of Recitation — Juz ʿAmma with Tajwīd',
+      arBody: g === 'f'
+        ? 'قَدْ قَرَأَتْ جُزْءَ عَمَّ عَلَى مُعَلِّمِهَا بِأَحْكَامِ التَّجْوِيدِ'
+        : 'قَدْ قَرَأَ جُزْءَ عَمَّ عَلَى مُعَلِّمِهِ بِأَحْكَامِ التَّجْوِيدِ',
+      enBody: 'has read the whole of Juz ʿAmma aloud before the teacher, applying the rules of tajwīd '
+            + 'throughout — the articulation points, the lengthenings, and the rulings of nūn and mīm.',
+      step: 2
+    },
+    hifz: {
+      arTitle: 'شَهَادَةُ حِفْظِ جُزْءِ عَمَّ',
+      enTitle: 'Certificate of Memorisation — Juz ʿAmma',
+      arBody: g === 'f'
+        ? 'قَدْ حَفِظَتْ جُزْءَ عَمَّ عَنْ ظَهْرِ قَلْبٍ، وَسَمَّعَتْهُ عَلَى مُعَلِّمِهَا بِالتَّجْوِيدِ'
+        : 'قَدْ حَفِظَ جُزْءَ عَمَّ عَنْ ظَهْرِ قَلْبٍ، وَسَمَّعَهُ عَلَى مُعَلِّمِهِ بِالتَّجْوِيدِ',
+      enBody: 'has committed the whole of Juz ʿAmma to memory and recited it from memory before the '
+            + 'teacher, with the rules of tajwīd held throughout.',
+      step: 3
+    }
+  };
+  var t = V[q.get('type')] || V.qaidah;
+
+  var set = function(sel, val){ document.querySelector(sel).textContent = val || ''; };
+  set('[data-ar-title]', t.arTitle);
+  set('[data-en-title]', t.enTitle);
+  set('[data-body-ar]',  t.arBody);
+  set('[data-body-en]',  t.enBody);
+  set('[data-name]',     q.get('name'));
+  set('[data-name-ar]',  q.get('ar'));
+  set('[data-id]',       q.get('id'));
+  set('[data-hijri]',    q.get('hijri'));
+  set('[data-greg]',     q.get('greg'));
+  if (q.get('name')) document.body.classList.add('filled');
+
+  /* The three tracks, with everything up to this one filled — so the
+     certificate shows where it sits in the path, not just what it is. */
+  var LABELS = ['Qāʿidah', 'Tajwīd', 'Ḥifẓ'];
+  var track = document.querySelector('[data-track]');
+  LABELS.forEach(function(lb, i){
+    if (i) { var s = document.createElement('span'); s.className = 'sep'; track.appendChild(s); }
+    var d = document.createElement('span');
+    d.className = 'step' + (i < t.step ? ' done' : '');
+    d.innerHTML = '<span class="dot"></span><span class="lb"></span>';
+    d.querySelector('.lb').textContent = lb;
+    track.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
