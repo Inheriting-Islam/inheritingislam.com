@@ -211,6 +211,10 @@ a.link:hover{color:var(--gold)}
    what you stopped is worth more than quietly deleting it. */
 .pill.stopped{color:var(--ink-faint);text-decoration:line-through;text-decoration-thickness:1px}
 .pill.stopped::before{display:none}
+/* Real code, nobody on it now, and we intend to come back. A distinct state
+   from stopped, and only honest if it is defined — see /apps/. */
+.pill.shelf{color:var(--ink-faint);border-style:dashed}
+.pill.shelf::before{background:none;border:1px solid currentColor;transform:rotate(45deg);border-radius:0}
 .pill.plain::before{display:none}
 
 /* ---------------------------------------------------------------- header  */
