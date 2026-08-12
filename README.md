@@ -3,7 +3,7 @@
 The house site for **Inheriting Islam** — the Studio, the Apps, Inheriting Qur'an, and the Podcast.
 
 Static HTML. No framework, no build step, no backend, and no third-party requests of any kind.
-Nine pages, about 2 MB in total including every image and both webfont families.
+Fourteen pages, about 2 MB in total including every image and both webfont families.
 
 **Deploying it for the first time? → [`DEPLOY.md`](DEPLOY.md).** That is the build plan: four
 gates, starting with the claims on the site that only Hamza can confirm.
@@ -44,7 +44,12 @@ index.html                  Home — thesis, four arms, Al-Maun, pricing, the fo
 studio/                     The Studio — context, scope, process, pricing, MasjidBuilder
 studio/almaun/              Case study — Al-Maun Neighborly Needs
 apps/                       Six apps, each with its real status
-quran/                      Inheriting Qur'an — the program, $50/mo, hosting a cohort
+quran/                      Inheriting Qur'an — the program, $50/mo, the enrolment form
+quran/start/                Placement check — five lines of Arabic, easiest first
+quran/lesson/               Lesson one in full — letters, shapes, vowels, the five makhārij
+quran/cohorts/              How a cohort runs, the schedule, the waitlist
+quran/masajid/              Hosting a cohort + a one-page PDF for a board
+quran/teacher/              Who teaches it, what the program is not, endorsements (empty)
 podcast/                    Season one, in production
 about/                      Hamza, Khadija, the mīrāth thesis, the five rules
 contact/                    Start a project — intake form (mailto) + direct contact
@@ -53,13 +58,19 @@ contact/                    Start a project — intake form (mailto) + direct co
 assets/css/fonts.css        Cormorant Garamond, Source Sans 3, Amiri — base64 woff2, one
                             cached request for the whole site (285 KB)
 assets/css/site.css         The entire design system: tokens, both themes, every component
+assets/css/quran.css        The Qur'an arm's skin: warmer bands, the arm bar, its components
 assets/js/site.js           Theme, nav, reveal, mailto composer, clipboard (~4 KB)
+assets/js/quran.js          Placement check, letter panel, time zone, level hand-off (~7 KB)
 assets/img/                 Hero artwork, app tiles, Al-Maun screenshots, share card, icons
 
 docs/image-brief.md         What artwork to commission, and the two things never to generate
 tools/check.py              The structural audit (also runs in CI)
 tools/render-audit.py       Browser sweep: overflow at every breakpoint, both themes
 tools/build-fonts.py        Rebuilds fonts.css from Google Fonts, subset to what we use
+tools/build-onepager.py     Renders the masajid PDF; fails if it spills past one page
+
+_internal/NOTES.md          Delivery notes — read before publishing
+_internal/NOTES-QURAN.md    Delivery notes for the Qur'an section specifically
 ```
 
 ## The design
@@ -80,7 +91,13 @@ can win on specificity by accident.
 **Copy** is plain HTML — edit in place.
 
 **Header, footer and nav** are repeated in every page deliberately, since there is no build step.
-Change one, change all nine. `aria-current="page"` marks the active nav item.
+Change one, change all fourteen. `aria-current="page"` marks the active nav item.
+
+**The `/quran/` pages differ from the other eight in three ways**, all deliberate: `<body>` carries
+`data-arm="quran"`, the header's primary button says **Join a class** rather than Start a project,
+and a second sticky `.armbar` under the header carries the section's own navigation (folded into
+the mobile panel below 1000px). The footer's third column lists the arm's pages instead of the
+house's work.
 
 **Status pills** — `<span class="pill live|dev|beta|concept">…</span>`. Those four words are
 defined on `/apps/`; keep them meaning exactly what that page says they mean.
