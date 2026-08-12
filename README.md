@@ -66,6 +66,7 @@ assets/css/studio.css       The Studio arm: the care ladder and the case-study m
 assets/css/podcast.css      The Podcast arm: episode cards, transcripts, the feed switch
 assets/js/site.js           Theme, nav, reveal, mailto composer, clipboard (~4 KB)
 assets/js/quran.js          Placement check, letter panel, time zone, level hand-off (~7 KB)
+assets/js/apps.js           Pre-ticks the waitlist box for the app you arrived from
 assets/img/                 Hero artwork, app tiles, Al-Maun screenshots, share card, icons
 
 docs/image-brief.md         What artwork to commission, and the two things never to generate
@@ -80,6 +81,8 @@ tools/episode-template/     Copy this folder to podcast/<guest-slug>/ to publish
 _internal/NOTES.md          Delivery notes — read before publishing
 _internal/NOTES-QURAN.md    Delivery notes for the Qur'an section
 _internal/NOTES-STUDIO.md   Delivery notes for the Studio section
+_internal/NOTES-PODCAST.md  Delivery notes for the Podcast section
+_internal/NOTES-APPS.md     Why the Apps arm was deliberately left thin
 ```
 
 ## The design

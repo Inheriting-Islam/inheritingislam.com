@@ -200,6 +200,7 @@
           <div class="meta">
             <span class="pill dev">In development</span>
             <a class="link small" href="https://itqan.inheritingislam.com" rel="noopener">See the pre-launch page</a>
+            <a class="link small" href="?app=itqan#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -215,6 +216,7 @@
           <div class="meta">
             <span class="pill dev">In development</span>
             <span class="tiny">Ask to be told when it opens</span>
+            <a class="link small" href="?app=jadhr#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -229,6 +231,7 @@
           <div class="meta">
             <span class="pill beta">Private beta</span>
             <span class="tiny">Closed group, not on any store</span>
+            <a class="link small" href="?app=sakinah#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -242,6 +245,7 @@
           </div>
           <div class="meta">
             <span class="pill dev">In development</span>
+            <a class="link small" href="?app=noorreader#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -256,6 +260,7 @@
           </div>
           <div class="meta">
             <span class="pill concept">Concept</span>
+            <a class="link small" href="?app=asanid#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -271,6 +276,7 @@
           <div class="meta">
             <span class="pill dev">In development</span>
             <span class="tiny">Vertical slice built, not yet released</span>
+            <a class="link small" href="?app=sunrise#waitlist">Tell me when it opens</a>
           </div>
         </div>
       </div>
@@ -284,6 +290,7 @@
           </div>
           <div class="meta">
             <span class="pill dev">In development</span>
+            <a class="link small" href="?app=saif#waitlist">Tell me when it opens</a>
           </div>
         </div>
 
@@ -292,18 +299,93 @@
     </div>
   </section>
 
-  <section class="band band-tight cta-band">
-    <div class="wrap cta-inner">
-      <div>
+  <!-- ============================================ WAITLIST -->
+  <section class="band band-tight edge-top" id="waitlist">
+    <div class="wrap contact-grid">
+      <div class="reveal">
         <p class="eyebrow">Be first, honestly</p>
-        <h2>We will write to you once, when it is actually ready.</h2>
-        <p>No drip sequence, no launch countdown, no list rented to anyone. One email, from a
-          person, when there is something real to open.</p>
+        <h2>Tell us which one, and we will write once.</h2>
+        <p class="small" style="margin:1.1em 0 1.8em">Not one list for seven apps. Tick the ones you
+          actually want and you hear about those and nothing else — one email, from a person, when
+          there is something real to open. No drip sequence, no countdown, no list rented to anyone.</p>
+
+        <form class="form" data-to="hamza@inheritingislam.com"
+              data-subject="App waitlist" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="w-name">Your name <span class="req">*</span></label>
+              <input id="w-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="w-email">Email <span class="req">*</span></label>
+              <input id="w-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="w-itqan">Which ones</label>
+            <div class="checkgrid">
+              <label class="checkrow" for="w-itqan">
+                <input id="w-itqan" name="itqan" type="checkbox">
+                <span>Itqān</span>
+              </label>
+              <label class="checkrow" for="w-jadhr">
+                <input id="w-jadhr" name="jadhr" type="checkbox">
+                <span>Jadhr</span>
+              </label>
+              <label class="checkrow" for="w-sakinah">
+                <input id="w-sakinah" name="sakinah" type="checkbox">
+                <span>Sakīnah</span>
+              </label>
+              <label class="checkrow" for="w-noorreader">
+                <input id="w-noorreader" name="noorreader" type="checkbox">
+                <span>NoorReader</span>
+              </label>
+              <label class="checkrow" for="w-asanid">
+                <input id="w-asanid" name="asanid" type="checkbox">
+                <span>Asanīd</span>
+              </label>
+              <label class="checkrow" for="w-sunrise">
+                <input id="w-sunrise" name="sunrise" type="checkbox">
+                <span>Sunrise Masjid</span>
+              </label>
+              <label class="checkrow" for="w-saif">
+                <input id="w-saif" name="saif" type="checkbox">
+                <span>Saif al-Ummah</span>
+              </label>
+            </div>
+            <p class="tiny" data-apphint style="margin:0">Tick as many as you like. If you arrived
+              from one of the cards above, it is already ticked.</p>
+          </div>
+
+          <div class="field">
+            <label for="w-use">What you would use it for</label>
+            <textarea id="w-use" name="use" placeholder="Optional, and the most useful thing you can tell us. What you are actually trying to do decides what gets built first — and what gets stopped."></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">Write this message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h13M12 5.5 18.5 12 12 18.5"/></svg>
+          </button>
+          <p class="formnote" role="status" aria-live="polite">This opens your own email app with
+            the message already written. Nothing is sent until you press send.</p>
+        </form>
       </div>
-      <div class="btns">
-        <a class="btn btn-primary" href="mailto:hamza@inheritingislam.com?subject=App%20waitlist&amp;body=Assalamu%20alaikum%2C%0D%0A%0D%0AI%27d%20like%20to%20hear%20when%20this%20app%20is%20ready%3A%20%0D%0A%0D%0AName%3A%20">Ask to be told
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h13M12 5.5 18.5 12 12 18.5"/></svg>
-        </a>
+
+      <div class="stack reveal">
+        <div class="note">
+          <h3>Why we ask which one</h3>
+          <p>Seven apps and two people is not a plan, it is a list. Knowing that two hundred of you
+            want one of these and eleven want another is the most useful thing we could possibly
+            learn — it decides what gets built next, and it decides what gets stopped.</p>
+          <p>So this is not a marketing list. It is the thing that tells us which of these deserve
+            to exist.</p>
+        </div>
+        <div class="note">
+          <h3>What you will not get</h3>
+          <p>Nothing until there is something to open. No launch sequence, no "we are so excited to
+            share", no reminder that we still exist. If an app you ticked gets stopped, you will be
+            told that too — which is the email nobody else sends.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -361,5 +443,6 @@
 </footer>
 
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/apps.js" defer></script>
 </body>
 </html>
