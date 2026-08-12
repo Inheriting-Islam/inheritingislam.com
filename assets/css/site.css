@@ -207,6 +207,10 @@ a.link:hover{color:var(--gold)}
 .pill.dev{color:var(--gold);border-color:color-mix(in srgb,var(--gold-line) 46%,transparent)}
 .pill.beta{color:var(--lapis);border-color:color-mix(in srgb,var(--lapis) 38%,transparent)}
 .pill.concept{color:var(--ink-faint)}
+/* No longer being built. Struck through rather than removed, because saying
+   what you stopped is worth more than quietly deleting it. */
+.pill.stopped{color:var(--ink-faint);text-decoration:line-through;text-decoration-thickness:1px}
+.pill.stopped::before{display:none}
 .pill.plain::before{display:none}
 
 /* ---------------------------------------------------------------- header  */

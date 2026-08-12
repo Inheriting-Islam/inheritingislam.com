@@ -56,6 +56,11 @@ for path in pages():
         target, _, frag = attr.partition('#')
         target = target.split('?')[0]
         if not target:
+            # Same-page link. A bare "#..." was skipped above, but "?a=b#frag"
+            # lands here — and used to be skipped too, which let a deleted
+            # anchor pass unnoticed. Check the fragment against this file.
+            if frag and f'id="{frag}"' not in s:
+                fails.append(f'{p}: missing anchor on this page → {attr}')
             continue
         base = ROOT if target.startswith('/') else os.path.dirname(path)
         full = os.path.normpath(os.path.join(base, target.lstrip('/') if target.startswith('/') else target))
