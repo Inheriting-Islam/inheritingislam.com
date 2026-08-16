@@ -22,6 +22,20 @@ deliberately **not** in this repo — see the last section.
 > a custom domain and broken on a `username.github.io/repo/` subpath. Do not judge the design
 > from the github.io preview URL — spin it up locally instead.
 
+**What actually gets published is `_site/`, not the repo.** `tools/stage.sh` builds it, and CI runs
+that same script. It drops `DEPLOY.md`, `README.md`, `docs/` and `tools/` — otherwise this file
+would answer 200 on the production domain, along with the sales one-pagers in `tools/`, which
+`check.py` deliberately never audits. A CI gate fails the build if any of them reappear.
+
+```bash
+tools/stage.sh                                    # builds ./_site
+python3 -m http.server 8099 --directory _site     # this is what visitors get
+```
+
+`CNAME` is what attaches the custom domain. Because the artifact comes from Actions rather than a
+branch, the domain lives in that file — delete it and the domain silently detaches on the next
+deploy. `stage.sh` refuses to build without it.
+
 ---
 
 ## Gate 1 — Truth. Nothing publishes with a false claim on it.
@@ -29,10 +43,11 @@ deliberately **not** in this repo — see the last section.
 These are the things on the site that are only true if you confirm them. **This gate is the one
 that actually matters**; the rest is plumbing.
 
-- [ ] **`hamza@inheritingislam.com` receives mail.** Every conversion on the site — the contact
+- [x] **`hamza@inheritingislam.com` receives mail.** Every conversion on the site — the contact
       form, the app waitlist, Qur'an enrolment, the podcast guest link — composes an email to that
-      address. Your notes have `inheritingislam@gmail.com` as the working address. Send yourself a
-      test before launch or every enquiry falls in a hole.
+      address. Confirmed: the domain's MX points at `smtp.google.com` and the mailbox is a live
+      Google Workspace account. Still send one real test through a form before launch; the DNS
+      being right is not the same as the message arriving.
 - [ ] **The phone number is public on all nine pages.** `(470) 404-0648`, as a `tel:` link.
       Confirm you want that.
 - [ ] **Al-Maun.** The case study says *built, tested, handed over — go-live is the domain switch
@@ -44,19 +59,18 @@ that actually matters**; the rest is plumbing.
       خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ. I checked the letterforms and diacritics
       and they are correct — but you taught this, so give it your own look. It is the one image on
       the site where an error would matter.
-- [ ] **App statuses.** Seven apps, none shipped. If any status changed, `/apps/` changes with it.
-- [ ] **Saif al-Ummah is provisional and needs your words.** It is listed at `Concept` and
-      described only as "a game… an older idea that has not been given its final shape." I had no
-      source material on it — that description is inferred from your having stepped away from a 3D
-      Steam build, not from anything you wrote. Confirm the status, and give me one true sentence
-      about what it is. If it is further along than Concept, the page currently understates it; if
-      it is shelved, it should come off.
+- [x] **App statuses.** Three apps in progress, four set down and named as such, none shipped.
+      Corrected in `2914be9`. If any status changes, `/apps/` changes with it.
+- [x] **Saif al-Ummah.** Given its own words in `01be35c` — set down, not stopped.
 
 ## Gate 2 — Technical. Automated, so it stays true.
 
 `tools/check.py` runs on every push and pull request, and blocks the deploy on failure. It checks
 dead links and anchors, one `<h1>` per page, landmarks, alt text, form labels, `lang="ar"` on every
-Arabic string, third-party requests, and phrases that would overclaim.
+Arabic string, third-party requests, phrases that would overclaim, and that `sitemap.xml` lists
+every indexable page and nothing else — a hand-written sitemap drifts the moment you add a page,
+and a crawler is the last thing to tell you. `/quran/verify/` is `noindex`, so it is correctly
+absent.
 
 ```bash
 python3 tools/check.py          # < 1s, no browser needed
@@ -79,21 +93,30 @@ It renders every page at 1440px and 390px in both themes and fails on horizontal
 
 ## Gate 3 — DNS and hosting.
 
-1. **Enable Pages** — Settings → Pages → Source: **GitHub Actions**. The workflow is already
-   committed.
-2. **Add the custom domain** — Settings → Pages → Custom domain → `inheritingislam.com` → Save.
-   The `CNAME` file in the repo already declares it.
-3. **Point DNS at GitHub** — at your registrar:
+1. **Pages is already enabled** — Source: **GitHub Actions**, and deploys are green. Nothing to do.
+2. **The custom domain comes from the `CNAME` file**, not the settings screen. It ships in the
+   artifact, so the domain attaches itself on the next deploy.
+3. **Point DNS at GitHub.** The nameservers are **Cloudflare** (`ian`/`sharon.ns.cloudflare.com`),
+   so this is done in the Cloudflare dashboard, not at the registrar:
 
-   | Type | Name | Value |
-   |---|---|---|
-   | A | `@` | `185.199.108.153` |
-   | A | `@` | `185.199.109.153` |
-   | A | `@` | `185.199.110.153` |
-   | A | `@` | `185.199.111.153` |
-   | CNAME | `www` | `inheriting-islam.github.io.` |
+   | Type | Name | Value | Proxy |
+   |---|---|---|---|
+   | A | `@` | `185.199.108.153` | **DNS only** |
+   | A | `@` | `185.199.109.153` | **DNS only** |
+   | A | `@` | `185.199.110.153` | **DNS only** |
+   | A | `@` | `185.199.111.153` | **DNS only** |
+   | CNAME | `www` | `inheriting-islam.github.io.` | **DNS only** |
 
-   Leave the existing `itqan` subdomain record alone — it is a separate deployment.
+   > **The proxy has to be off — grey cloud, not orange.** This zone defaults to proxied;
+   > `itqan.inheritingislam.com` resolves to Cloudflare IPs today. If these records are proxied,
+   > GitHub cannot validate the domain, never issues the certificate, and **Enforce HTTPS stays
+   > greyed out permanently**. Turn the proxy on later if you want it, but only after the
+   > certificate exists, and set SSL mode to Full (strict) when you do.
+
+   Leave the existing `itqan` record alone — it is a separate deployment.
+
+   Do not touch the `MX` record. Mail for `hamza@inheritingislam.com` routes through Google, and
+   every conversion on the site depends on it.
 4. **Wait for the certificate.** GitHub issues it automatically once DNS resolves; usually
    minutes, sometimes a few hours. Then tick **Enforce HTTPS**. Do not skip this.
 5. **Verify the domain** in the organisation settings to prevent takeover of the subdomain.
