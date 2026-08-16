@@ -483,17 +483,58 @@ figure{margin:0}
   white-space:nowrap;text-align:right;letter-spacing:-.01em
 }
 .rrow .amt .per{font-family:var(--f-body);font-weight:400;font-size:.8rem;color:var(--ink-faint);letter-spacing:0}
-.rrow .amt .was{
-  display:block;font-family:var(--f-body);font-size:.82rem;font-weight:400;
-  color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--clay);
-  text-decoration-thickness:1.5px;margin-bottom:.15em;letter-spacing:0
-}
+/* `gift` highlights the row a reader should end up on — it marks the honest
+   option in the rent-vs-own arithmetic, not a discounted price. */
 .rrow.gift{background:var(--gold-wash)}
 .rrow.gift .amt{color:var(--ink)}
 @media (max-width:600px){
   .rrow{grid-template-columns:1fr;gap:10px}
   .rrow .amt{text-align:left}
-  .rrow .amt .was{display:inline-block;margin-right:.6em;margin-bottom:0}
+}
+
+/* The Nāfiʿ Grant sits outside the rate table on purpose. As a row it was a
+   marked-down price at the top of the list, and a struck-through number is a
+   gift receipt: it tells a board, in retail grammar, exactly how much charity
+   they are taking. Awarded on the work an organisation already does, it is
+   something qualified for rather than discounted into — so it gets its own
+   block, its own criteria, and no `was` price to compare against. */
+.grant{
+  border:1px solid var(--gold-line);background:var(--gold-wash);
+  padding:clamp(20px,2.8vw,30px);border-radius:var(--radius)
+}
+.grant .top{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(14px,3vw,40px);
+  align-items:baseline;padding-bottom:15px;margin-bottom:17px;
+  border-bottom:1px solid color-mix(in srgb,var(--gold-line) 36%,transparent)
+}
+.grant h3{margin-bottom:.14em}
+.grant .gloss{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);display:block
+}
+/* inline-block and a physical margin, not margin-inline-end — the span is
+   dir="rtl", so the logical end resolves to its left and the Arabic sat on top
+   of the transliteration. Letter-spacing is cleared too: the gloss tracks at
+   .2em, which pulls a cursive script apart. */
+.grant .gloss .ar{
+  display:inline-block;font-size:1.55em;line-height:1;letter-spacing:0;
+  margin:0 .55em 0 0;vertical-align:-.14em
+}
+.grant .amt{
+  font-family:var(--f-display);font-weight:600;font-size:clamp(1.15rem,1rem + .6vw,1.5rem);
+  white-space:nowrap;text-align:right;letter-spacing:-.01em
+}
+.grant .amt .per{
+  display:block;font-family:var(--f-body);font-weight:400;font-size:.76rem;
+  color:var(--ink-faint);letter-spacing:0;white-space:normal
+}
+.grant > p{color:var(--ink-soft);font-size:.95rem;max-width:62ch}
+.grant .facts{margin-top:1.15em;border-top-color:color-mix(in srgb,var(--gold-line) 36%,transparent)}
+.grant .facts li{border-bottom-color:color-mix(in srgb,var(--gold-line) 22%,transparent)}
+.grant .facts li:last-child{border-bottom:0;padding-bottom:0}
+@media (max-width:600px){
+  .grant .top{grid-template-columns:1fr;gap:8px}
+  .grant .amt{text-align:left}
 }
 .care{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .care div{background:var(--paper);padding:20px 18px}
