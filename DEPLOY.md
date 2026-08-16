@@ -72,6 +72,13 @@ every indexable page and nothing else — a hand-written sitemap drifts the mome
 and a crawler is the last thing to tell you. `/quran/verify/` is `noindex`, so it is correctly
 absent.
 
+It also checks that every page carries the **Content-Security-Policy** meta, byte for byte. Pages
+cannot send response headers, so the policy rides in the HTML. `'unsafe-inline'` is unavoidable
+while the theme script and 190 style attributes are inline, but `default-src 'self'` and
+`connect-src 'none'` shut out every other origin — which is what turns "no trackers, no
+third-party scripts" into something the browser enforces rather than something this repo merely
+claims. It cannot set `frame-ancestors`; that needs a real header, which Pages will not do.
+
 ```bash
 python3 tools/check.py          # < 1s, no browser needed
 ```

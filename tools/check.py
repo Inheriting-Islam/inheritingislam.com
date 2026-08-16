@@ -23,6 +23,24 @@ SKIP_DIRS = {'.git', '_internal', 'tools', 'docs', '.github', '_site', '_issued'
 # The canonical origin. Every <loc> in sitemap.xml is built from it.
 SITE = 'https://inheritingislam.com'
 
+# GitHub Pages cannot send response headers, so the policy rides in the page.
+# It is what makes "no trackers, no third-party scripts" something the browser
+# enforces rather than something this script merely asserts. 'unsafe-inline' is
+# unavoidable while the theme script and 190 style attributes are inline; the
+# value is in default-src and connect-src, which shut out every other origin.
+CSP = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline'; "
+    "style-src 'self' 'unsafe-inline'; "
+    "img-src 'self' data:; "
+    "font-src 'self' data:; "
+    "connect-src 'none'; "
+    "form-action 'self'; "
+    "base-uri 'none'; "
+    "object-src 'none'"
+)
+CSP_META = f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
+
 # Hosts this site is allowed to reference. Everything else is a privacy break.
 ALLOWED_HOSTS = {'inheritingislam.com', 'itqan.inheritingislam.com'}
 
@@ -111,6 +129,10 @@ for path in pages():
     for pattern, why in BANNED:
         if re.search(pattern, body, re.I):
             warns.append(f'{p}: "{pattern}" — {why}')
+
+    # 8 ─ the policy travels with every page, byte for byte
+    if CSP_META not in s:
+        fails.append(f'{p}: missing or altered Content-Security-Policy meta')
 
     # 7 ─ remember where this page belongs in the sitemap. 404.html is reachable
     # but is not a destination, so it is neither listed nor expected.
