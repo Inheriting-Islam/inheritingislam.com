@@ -20,21 +20,24 @@ deliberately **not** in this repo — see the last section.
 
 > `assets/` is referenced with root-absolute paths (`/assets/css/site.css`). That is correct for
 > a custom domain and broken on a `username.github.io/repo/` subpath. Do not judge the design
-> from the github.io preview URL — spin it up locally instead.
+> from the github.io preview URL — spin it up locally instead. Now that the custom domain is
+> attached, that preview URL redirects here anyway.
 
 **What actually gets published is `_site/`, not the repo.** `tools/stage.sh` builds it, and CI runs
-that same script. It drops `DEPLOY.md`, `README.md`, `docs/` and `tools/` — otherwise this file
-would answer 200 on the production domain, along with the sales one-pagers in `tools/`, which
-`check.py` deliberately never audits. A CI gate fails the build if any of them reappear.
+that same script. It drops `DEPLOY.md`, `README.md`, `docs/`, `tools/` and `.claude/` — otherwise
+this file would answer 200 on the production domain, along with the sales one-pagers in `tools/`,
+which `check.py` deliberately never audits. A CI gate fails the build if any of them reappear.
 
 ```bash
 tools/stage.sh                                    # builds ./_site
 python3 -m http.server 8099 --directory _site     # this is what visitors get
 ```
 
-`CNAME` is what attaches the custom domain. Because the artifact comes from Actions rather than a
-branch, the domain lives in that file — delete it and the domain silently detaches on the next
-deploy. `stage.sh` refuses to build without it.
+`CNAME` ships in the artifact and `stage.sh` refuses to build without it — but **it does not attach
+the custom domain on its own.** That is worth stating plainly because the opposite is widely
+assumed, including by an earlier draft of this file. On an Actions-built site the domain has to be
+set on the Pages settings screen (or via the API); the file deployed cleanly for hours while Pages
+still reported `cname: null` and served "Site not found".
 
 ---
 
@@ -101,8 +104,9 @@ It renders every page at 1440px and 390px in both themes and fails on horizontal
 ## Gate 3 — DNS and hosting.
 
 1. **Pages is already enabled** — Source: **GitHub Actions**, and deploys are green. Nothing to do.
-2. **The custom domain comes from the `CNAME` file**, not the settings screen. It ships in the
-   artifact, so the domain attaches itself on the next deploy.
+2. **Set the custom domain explicitly** — Settings → Pages → Custom domain, or
+   `gh api -X PUT repos/Inheriting-Islam/inheritingislam.com/pages -f cname=inheritingislam.com`.
+   The `CNAME` file in the artifact does *not* do this for you on an Actions-built site.
 3. **Point DNS at GitHub.** The nameservers are **Cloudflare** (`ian`/`sharon.ns.cloudflare.com`),
    so this is done in the Cloudflare dashboard, not at the registrar:
 
@@ -114,31 +118,54 @@ It renders every page at 1440px and 390px in both themes and fails on horizontal
    | A | `@` | `185.199.111.153` | **DNS only** |
    | CNAME | `www` | `inheriting-islam.github.io.` | **DNS only** |
 
-   > **The proxy has to be off — grey cloud, not orange.** This zone defaults to proxied;
-   > `itqan.inheritingislam.com` resolves to Cloudflare IPs today. If these records are proxied,
-   > GitHub cannot validate the domain, never issues the certificate, and **Enforce HTTPS stays
-   > greyed out permanently**. Turn the proxy on later if you want it, but only after the
-   > certificate exists, and set SSL mode to Full (strict) when you do.
+   > **The proxy has to be off — grey cloud, not orange.** This zone defaults to proxied, and the
+   > records went in orange the first time. While Cloudflare answers for the domain, GitHub cannot
+   > validate it, never issues the certificate, and **Enforce HTTPS stays greyed out permanently**.
+   > The tell is a working site with a padlock whose certificate is issued by *Google Trust
+   > Services* rather than Let's Encrypt — that is Cloudflare's, not yours, and every visitor is
+   > being routed through their edge, which is hard to square with the footer's promise of no
+   > third parties.
 
-   Leave the existing `itqan` record alone — it is a separate deployment.
+   `itqan` is a `CNAME` to `inheriting-islam.github.io` — another Pages site, not something that
+   needs proxying. It has its own Let's Encrypt certificate and is fine unproxied.
 
    Do not touch the `MX` record. Mail for `hamza@inheritingislam.com` routes through Google, and
    every conversion on the site depends on it.
-4. **Wait for the certificate.** GitHub issues it automatically once DNS resolves; usually
-   minutes, sometimes a few hours. Then tick **Enforce HTTPS**. Do not skip this.
-5. **Verify the domain** in the organisation settings to prevent takeover of the subdomain.
+4. **Redeploy.** Attaching a domain does not republish the site. Until a deployment runs *after*
+   the domain is set, Pages serves "Site not found" on it. `gh workflow run deploy.yml --ref main`.
+5. **Wait for the certificate** — usually minutes once DNS is correct.
 
-- [ ] `https://inheritingislam.com` serves the site
-- [ ] `https://www.inheritingislam.com` redirects to the apex
-- [ ] Enforce HTTPS is on
-- [ ] `https://inheritingislam.com/sitemap.xml` and `/robots.txt` load
+   > **If it never arrives, the domain is stuck on a cached failed check.** This happened here: the
+   > domain was first attached while DNS was still proxied, and the Pages API then carried no
+   > `https_certificate` object at all. Re-saving the *same* `cname` is a no-op and triggers
+   > nothing. Clear it and set it again — the certificate issued within a minute:
+   >
+   > ```bash
+   > echo '{"cname": null}' | gh api -X PUT repos/Inheriting-Islam/inheritingislam.com/pages --input -
+   > gh api -X PUT repos/Inheriting-Islam/inheritingislam.com/pages -f cname=inheritingislam.com
+   > ```
+
+6. **Tick Enforce HTTPS** once the certificate exists —
+   `gh api -X PUT …/pages -F https_enforced=true`. Do not skip this.
+7. **Verify the domain** in the organisation settings to prevent takeover of a subdomain. This is
+   browser-only; there is no REST endpoint for it, and none for the org 2FA requirement either.
+
+- [x] `https://inheritingislam.com` serves the site — all 17 pages 200
+- [x] `https://www.inheritingislam.com` redirects to the apex; `http://` redirects to `https://`
+- [x] Enforce HTTPS is on; certificate is Let's Encrypt, covering the apex and `www`
+- [x] `https://inheritingislam.com/sitemap.xml` and `/robots.txt` load
+- [ ] Verify the domain in organisation settings
+- [ ] Require 2FA org-wide — **confirm Khadija has 2FA on first**, or GitHub removes her from the org
+
+> GitHub Pages sends **no HSTS header** on custom domains and cannot be made to. Measured, not
+> assumed. `frame-ancestors` is likewise unavailable, since a meta tag cannot set it.
 
 ## Gate 4 — Launch, and the week after.
 
 - [ ] Paste a page URL into WhatsApp and iMessage — the share card in `assets/img/og-card.png`
       should appear
 - [ ] Submit `sitemap.xml` to Google Search Console
-- [ ] Deliberately hit a bad URL and confirm `404.html` renders
+- [x] Deliberately hit a bad URL and confirm `404.html` renders — verified on the live domain
 - [ ] Send the link to two people who are not you and watch them use it without helping
 - [ ] Only then: send it to imams and boards
 
