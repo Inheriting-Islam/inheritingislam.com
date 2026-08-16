@@ -11,13 +11,17 @@ Checks, in the order they tend to break:
   4. every Arabic string carries lang="ar"
   5. no third-party requests sneak in (the privacy claim has to stay true)
   6. no page claims work is finished that is not
+  7. sitemap.xml lists every indexable page and nothing else
 
 Exits non-zero on any failure.
 """
 import os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKIP_DIRS = {'.git', '_internal', 'tools', 'docs', '.github'}
+SKIP_DIRS = {'.git', '_internal', 'tools', 'docs', '.github', '_site', '_issued'}
+
+# The canonical origin. Every <loc> in sitemap.xml is built from it.
+SITE = 'https://inheritingislam.com'
 
 # Hosts this site is allowed to reference. Everything else is a privacy break.
 ALLOWED_HOSTS = {'inheritingislam.com', 'itqan.inheritingislam.com'}
@@ -31,6 +35,7 @@ BANNED = [
 ]
 
 fails, warns = [], []
+indexable, noindexed = set(), set()   # canonical URLs, filled as pages are read
 
 
 def pages():
@@ -106,6 +111,27 @@ for path in pages():
     for pattern, why in BANNED:
         if re.search(pattern, body, re.I):
             warns.append(f'{p}: "{pattern}" — {why}')
+
+    # 7 ─ remember where this page belongs in the sitemap. 404.html is reachable
+    # but is not a destination, so it is neither listed nor expected.
+    if p != '404.html':
+        d = os.path.dirname(p).replace(os.sep, '/')
+        if os.path.basename(p) == 'index.html':
+            url = f'{SITE}/{d}/' if d else f'{SITE}/'
+        else:
+            url = f'{SITE}/{p}'
+        (noindexed if re.search(r'name="robots"[^>]*noindex', s)
+         else indexable).add(url)
+
+# 7 ─ …and hold sitemap.xml to it. Hand-maintained sitemaps drift the moment a
+# page is added, and a crawler is the last thing to tell you.
+sm = open(os.path.join(ROOT, 'sitemap.xml'), encoding='utf-8').read()
+listed = set(re.findall(r'<loc>\s*([^<\s]+)\s*</loc>', sm))
+for url in sorted(indexable - listed):
+    fails.append(f'sitemap.xml: indexable page is not listed → {url}')
+for url in sorted(listed - indexable):
+    why = 'the page is noindex' if url in noindexed else 'no such page'
+    fails.append(f'sitemap.xml: listed but should not be → {url} — {why}')
 
 n = len(list(pages()))
 for w in warns:
