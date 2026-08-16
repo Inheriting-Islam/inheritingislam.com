@@ -26,6 +26,7 @@ rsync -a "$ROOT/" "$OUT/" \
   --exclude '.git' \
   --exclude '.github' \
   --exclude '.gitignore' \
+  --exclude '.claude' \
   --exclude '.DS_Store' \
   --exclude '_site' \
   --exclude '_internal' \
