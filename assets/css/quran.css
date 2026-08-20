@@ -199,3 +199,8 @@
 /* The timeline marker sits on the band it is drawn on, and this arm's
    alternate band is warmed. */
 [data-arm="quran"] .band-alt .timeline li::before{background:var(--band-warm)}
+
+/* the teacher's portrait — the house .figure frame, narrowed so it sits as a
+   column element beside the record rather than dominating it. */
+.portrait{max-width:290px;margin:0 0 1.6em}
+@media (max-width:860px){.portrait{max-width:230px}}
