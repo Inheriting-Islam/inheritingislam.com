@@ -28,13 +28,27 @@ jobs:
         run: tools/stage.sh
 
       - name: Page weight
+        # Two budgets, because there are two different costs and the old single
+        # total conflated them. What a visitor is *made* to download to read a
+        # page stays on the hard 4 MB budget. A PDF costs a visitor nothing
+        # until they choose to click one, so downloads are bounded separately
+        # and much more loosely — but they are still bounded, because "it is
+        # only a download" is how a site quietly grows a 200 MB video.
         run: |
           echo "Largest files:"
           find _site -type f -print | xargs du -k 2>/dev/null | sort -rn | head -12
-          total=$(du -sk _site | cut -f1)
-          echo "Total: ${total} KB"
-          if [ "$total" -gt 4096 ]; then
-            echo "::error::Site exceeds 4 MB — page weight is a design constraint here."
+          # -exec + rather than xargs: with no matches xargs would run `du` bare,
+          # which measures the working directory and reports a passing number for
+          # the wrong thing. awk gives 0 on empty input, which is the truth.
+          served=$(find _site -type f ! -name '*.pdf' -exec du -k {} + | awk '{s+=$1} END{print s+0}')
+          dl=$(find _site -type f -name '*.pdf' -exec du -k {} + | awk '{s+=$1} END{print s+0}')
+          echo "Served with the pages: ${served} KB   ·   Opt-in downloads: ${dl} KB"
+          if [ "$served" -gt 4096 ]; then
+            echo "::error::Pages exceed 4 MB — page weight is a design constraint here."
+            exit 1
+          fi
+          if [ "$dl" -gt 12288 ]; then
+            echo "::error::Downloadable files exceed 12 MB. Bounded on purpose."
             exit 1
           fi
 
