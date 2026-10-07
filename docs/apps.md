@@ -3,13 +3,19 @@
 *Source of truth for the statuses on `/apps/`. Compiled 2026-08-11 by reading every repository
 rather than trusting an earlier summary — which had four of the seven wrong.*
 
+*Updated 2026-10-07: Life Is Temporary added as the first live app, and **Live** added as a fifth
+defined word.*
+
 Status vocabulary, as defined on the page itself:
+**Live** — public and working; anyone can use it today, and we keep it maintained.
 **In development** — real code exists and is being worked on, not installable by you yet.
 **Private beta** — working software in the hands of a small number of people who know they are early.
 **Concept** — a designed, thought-through idea with nothing built.
+**Set down** — real code that runs, with nobody working on it now and every intention of coming back.
 
 | App | Status | Evidence |
 |---|---|---|
+| Life Is Temporary | Live | lifeistemporary.com · public, free · repo `Inheriting-Islam/lifeistemporary` |
 | Itqān | In development | 164 commits · TypeScript · unit + Playwright e2e suites |
 | Jadhr | In development | Playable prototype + the content engine behind it |
 | Sakīnah | Private beta | 30 commits · client + server + Prisma · in daily personal use |
@@ -19,6 +25,16 @@ Status vocabulary, as defined on the page itself:
 | Asanīd | Concept | Build plan and licence only — no code, by design |
 
 ---
+
+## Life Is Temporary
+
+Free guidance for Muslim families when someone dies, and for preparing ahead: step-by-step guides
+for the US, UK and Canada, a directory of Muslim funeral services in six countries, an inheritance
+calculator for all four schools, and a will draft builder. Live at
+[lifeistemporary.com](https://lifeistemporary.com/).
+
+**The story.** It is the first of the house's apps that anyone can open today, which is why `/apps/`
+needed a fifth word. No Arabic name is shown on the page until one is confirmed.
 
 ## Itqān — إتقان · *mastery, doing a work with excellence*
 
