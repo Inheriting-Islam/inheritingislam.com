@@ -42,7 +42,9 @@ CSP = (
 CSP_META = f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
 
 # Hosts this site is allowed to reference. Everything else is a privacy break.
-ALLOWED_HOSTS = {'inheritingislam.com', 'itqan.inheritingislam.com'}
+ALLOWED_HOSTS = {'inheritingislam.com', 'itqan.inheritingislam.com',
+                 # Sister properties: plain links people click, not requests the page makes.
+                 'lifeistemporary.com', 'musayyir.com'}
 
 # Phrases that would make the site claim something it has not earned.
 BANNED = [
