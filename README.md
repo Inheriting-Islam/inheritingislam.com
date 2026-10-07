@@ -1,9 +1,13 @@
 # inheritingislam.com
 
-The house site for **Inheriting Islam** — the Studio, the Apps, Inheriting Qur'an, and the Podcast.
+The house site for **Inheriting Islam** — the Apps, Inheriting Qur'an, and the Podcast.
+
+Websites and care plans for masajid, Islamic nonprofits and Muslim-owned organisations are provided
+by Musayyir ([musayyir.com](https://musayyir.com/services/)). The old `/studio/` addresses are
+redirect stubs that forward there.
 
 Static HTML. No framework, no build step, no backend, and no third-party requests of any kind.
-Seventeen pages, about 2.3 MB in total including every image and both webfont families.
+Fourteen pages plus three redirect stubs, about 2 MB in total including every image and both webfont families.
 
 **Deploying it for the first time? → [`DEPLOY.md`](DEPLOY.md).** That is the build plan: four
 gates, starting with the claims on the site that only Hamza can confirm.
@@ -34,17 +38,17 @@ For layout and colour changes, the browser sweep — renders every page at 1440p
 themes and fails on horizontal overflow:
 
 ```bash
-python3 tools/render-audit.py http://localhost:8080 "/,/studio/,/apps/,/quran/"
+python3 tools/render-audit.py http://localhost:8080 "/,/apps/,/quran/,/contact/"
 ```
 
 ## What is where
 
 ```
-index.html                  Home — thesis, four arms, Al-Maun, pricing, the founder
-studio/                     The Studio — the problem, scope, process, ownership, pricing, FAQ
-studio/care/                Care plans — the tiers, minor vs major, the seasons
-studio/almaun/              Case study — Al-Maun Neighborly Needs
-apps/                       Six apps, each with its real status
+index.html                  Home — thesis, three arms, the founder
+studio/, studio/care/,      Redirect stubs (noindex) → musayyir.com/services/ and /work/.
+  studio/almaun/            Client work moved to Musayyir; these keep old links working
+apps/                       Life Is Temporary (live), three in progress, and the four stopped
+                            or set down — each with its real status
 quran/                      Inheriting Qur'an — the program, $50/mo, the enrolment form
 quran/start/                Placement check — five lines of Arabic, easiest first
 quran/lesson/               Lesson one in full — letters, shapes, vowels, the five makhārij
@@ -54,33 +58,32 @@ quran/teacher/              Who teaches it, what the program is not, endorsement
 quran/verify/               The certificate register — noindex, empty until the first cohort
 podcast/                    Season one, in production — plus the episode index
 podcast/guests/             Be a guest, or recommend the person who should be
-about/                      Hamza, Khadija, the mīrāth thesis, the five rules
-contact/                    Start a project — intake form (mailto) + direct contact
+about/                      Hamza, Khadija, the mīrāth thesis, the four rules
+contact/                    General contact — Qur'an, apps, podcast, press (mailto form)
 404.html
 
 assets/css/fonts.css        Cormorant Garamond, Source Sans 3, Amiri — base64 woff2, one
                             cached request for the whole site (285 KB)
 assets/css/site.css         The entire design system: tokens, both themes, every component
 assets/css/quran.css        The Qur'an arm's skin: warmer bands, its own components
-assets/css/studio.css       The Studio arm: the care ladder and the case-study metrics
 assets/css/podcast.css      The Podcast arm: episode cards, transcripts, the feed switch
 assets/js/site.js           Theme, nav, reveal, mailto composer, clipboard (~4 KB)
 assets/js/quran.js          Placement check, letter panel, time zone, level hand-off (~7 KB)
 assets/js/apps.js           Pre-ticks the waitlist box for the app you arrived from
-assets/img/                 Hero artwork, app tiles, Al-Maun screenshots, share card, icons
+assets/img/                 Hero artwork, app tiles, share card, icons
 
 docs/image-brief.md         What artwork to commission, and the two things never to generate
 tools/check.py              The structural audit (also runs in CI)
 tools/render-audit.py       Browser sweep: overflow at every breakpoint, both themes
 tools/build-fonts.py        Rebuilds fonts.css from Google Fonts, subset to what we use
-tools/build-onepager.py     Renders both leave-behind PDFs; fails if either spills past one page
+tools/build-onepager.py     Renders the leave-behind PDFs; fails if any spills past one page
 tools/build-certificates.py Blank specimens for the site, or real PDFs from a CSV of graduates
 tools/certificate.html      One template, three variants, driven by query parameters
 tools/episode-template/     Copy this folder to podcast/<guest-slug>/ to publish an episode
 
 _internal/NOTES.md          Delivery notes — read before publishing
 _internal/NOTES-QURAN.md    Delivery notes for the Qur'an section
-_internal/NOTES-STUDIO.md   Delivery notes for the Studio section
+_internal/NOTES-STUDIO.md   Delivery notes for the former Studio section (now Musayyir)
 _internal/NOTES-PODCAST.md  Delivery notes for the Podcast section
 _internal/NOTES-APPS.md     Why the Apps arm was deliberately left thin
 ```
@@ -105,16 +108,15 @@ can win on specificity by accident.
 **Header, footer and nav** are repeated in every page deliberately, since there is no build step.
 Change one, change all fourteen. `aria-current="page"` marks the active nav item.
 
-**Arm sections.** `/quran/` and `/studio/` each have enough pages to need local navigation, so
-they carry `data-arm="…"` on `<body>` and a second sticky `.armbar` under the header (folded into
-the mobile panel below 1000px), and their footer's third column lists the arm's own pages. The
-Qur'an pages also swap the header's primary button to **Join a class**, because a student arriving
-to learn to read should not be sold a website build. The shared chrome lives in `site.css` under
-"ARM SECTIONS"; each arm's stylesheet holds only what is particular to it — and `studio.css` shifts
-no colour token at all, because the Studio is the house's default register.
+**Arm sections.** `/quran/` has enough pages to need local navigation, so its pages carry
+`data-arm="…"` on `<body>` and a second sticky `.armbar` under the header (folded into the mobile
+panel below 1000px), and their footer's third column lists the arm's own pages. The Qur'an pages
+also swap the header's primary button from **Get in touch** to **Join a class**. The shared chrome
+lives in `site.css` under "ARM SECTIONS"; each arm's stylesheet holds only what is particular to it.
 
-**Status pills** — `<span class="pill live|dev|beta|concept">…</span>`. Those four words are
-defined on `/apps/`; keep them meaning exactly what that page says they mean.
+**Status pills** — `<span class="pill live|dev|beta|concept|shelf">…</span>`. Those five words
+(Live, In development, Private beta, Concept, Set down) are defined on `/apps/`; keep them meaning
+exactly what that page says they mean.
 
 **Fonts** are subset to Latin plus the diacritics the copy actually needs (ā ī ū ʿ ḥ ṣ …) and the
 Arabic block. Google's stock `latin` subset omits U+012B (ī), which would drop every long vowel in
@@ -136,9 +138,11 @@ exactly what is being sent. To swap in a real endpoint later, replace the submit
 ## What this site holds itself to
 
 - **Zero third-party requests.** No CDN, no fonts API, no analytics, no cookies. The only
-  non-relative link on the whole site is to `itqan.inheritingislam.com`. Enforced by CI.
+  links off the site are to `itqan.inheritingislam.com` and the sister properties
+  `lifeistemporary.com` and `musayyir.com` — links people click, not requests the page makes.
+  Enforced by CI.
 - **WCAG AA.** 4.5:1 or better on every piece of text in both themes — computed, not eyeballed,
   including the backdrop behind the hero type at five viewport sizes.
 - **No horizontal overflow** at 390px, verified page by page in both themes.
 - **Honest status.** Nothing here describes work as finished that is not finished. That includes
-  our own flagship case study, and it is the reason the rest of the site is worth believing.
+  our own apps, and it is the reason the rest of the site is worth believing.

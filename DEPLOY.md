@@ -53,17 +53,15 @@ that actually matters**; the rest is plumbing.
       being right is not the same as the message arriving.
 - [ ] **The phone number is public on all nine pages.** `(470) 404-0648`, as a `tel:` link.
       Confirm you want that.
-- [ ] **Al-Maun.** The case study says *built, tested, handed over — go-live is the domain switch
-      on their side.* That is true today. If it goes live first, update it (search `go-live` in
-      `studio/almaun/index.html` and `index.html`) before this site publishes.
-- [ ] **Capacity.** `/contact/` says "a small number of builds at a time." Replace with your real
-      number — a specific one converts noticeably better.
+- [x] **Client work.** Website builds, care plans, pricing and the Al-Maun case study moved to
+      Musayyir. `/studio/`, `/studio/care/` and `/studio/almaun/` are noindex redirect stubs to
+      `musayyir.com/services/` and `musayyir.com/work/`; nothing else on this site sells builds.
 - [ ] **The Qur'an hero image.** The hadith on the wooden board reads
       خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ. I checked the letterforms and diacritics
       and they are correct — but you taught this, so give it your own look. It is the one image on
       the site where an error would matter.
-- [x] **App statuses.** Three apps in progress, four set down and named as such, none shipped.
-      Corrected in `2914be9`. If any status changes, `/apps/` changes with it.
+- [x] **App statuses.** Life Is Temporary live; three apps in progress; three stopped and one set
+      down, named as such. If any status changes, `/apps/` changes with it.
 - [x] **Saif al-Ummah.** Given its own words in `01be35c` — set down, not stopped.
 
 ## Gate 2 — Technical. Automated, so it stays true.
@@ -90,7 +88,7 @@ The heavier sweep needs Chrome and runs locally when you change layout or colour
 
 ```bash
 python3 -m http.server 8080                     # terminal one
-python3 tools/render-audit.py http://localhost:8080 "/,/studio/,/apps/,/quran/"
+python3 tools/render-audit.py http://localhost:8080 "/,/apps/,/quran/,/contact/"
 ```
 
 It renders every page at 1440px and 390px in both themes and fails on horizontal overflow.

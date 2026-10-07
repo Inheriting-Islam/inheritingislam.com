@@ -3,7 +3,7 @@
 
     python3 -m http.server 8080          # in one terminal, from the repo root
     python3 tools/build-onepager.py      # in another — renders every sheet
-    python3 tools/build-onepager.py --only board
+    python3 tools/build-onepager.py --only masajid
 
 Each sheet is a single Letter page a person can print and hand to a board.
 Sources live in tools/ rather than _internal/ so a fresh clone can rebuild them
@@ -23,8 +23,6 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SHEETS = {
     "masajid": ("onepager-masajid.html",
                 "quran/masajid/inheriting-quran-for-masajid.pdf"),
-    "board":   ("onepager-board.html",
-                "studio/inheriting-islam-for-your-board.pdf"),
     "guests":  ("onepager-guests.html",
                 "podcast/guests/the-podcast-for-guests.pdf"),
 }
